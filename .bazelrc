@@ -21,3 +21,7 @@ test --test_env=VIRTUAL_ENV
 test --test_env=PATH
 test --action_env=VIRTUAL_ENV
 test --action_env=PATH
+
+# Core configurations
+build:picorv32 --define=target_core=picorv32
+build:simple_core --define=target_core=simple_core

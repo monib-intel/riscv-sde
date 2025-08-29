@@ -1,0 +1,10 @@
+# BUILD file for configuration files
+"""
+This BUILD file provides access to the configuration files.
+"""
+
+filegroup(
+    name = "simple_core_test",
+    srcs = ["simple_core_test.yaml"],
+    visibility = ["//visibility:public"],
+)

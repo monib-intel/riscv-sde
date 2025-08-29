@@ -1,0 +1,16 @@
+# BUILD file for picorv32 RTL
+
+filegroup(
+    name = "picorv32_rtl",
+    srcs = [
+        "picorv32.v",
+        "core.json",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "picorv32_adapter",
+    srcs = ["core.v"],
+    visibility = ["//visibility:public"],
+)

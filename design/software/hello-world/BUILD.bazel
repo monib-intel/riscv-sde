@@ -1,0 +1,30 @@
+# BUILD file for hello-world program
+
+# The make_hex.py file
+filegroup(
+    name = "make_hex_script",
+    srcs = ["make_hex.py"],
+    visibility = ["//visibility:private"],
+)
+
+# Simple script to generate a dummy binary for testing
+genrule(
+    name = "dummy_binary",
+    srcs = [],
+    outs = ["hello_world.bin"],
+    cmd = "echo -ne '\\x00\\x10\\x00\\x00\\x93\\x00\\x10\\x00\\x13\\x81\\x10\\x00\\x93\\x81\\x20\\x00\\x33\\x02\\x31\\x00' > $@",
+    visibility = ["//visibility:private"],
+)
+
+# Define the executable output
+genrule(
+    name = "executable",
+    srcs = ["src/main.rs"],  # Just for dependency tracking
+    outs = ["hello_world.hex"],
+    cmd = "python3 $(location :make_hex_script) $(location :dummy_binary) $(location hello_world.hex)",
+    tools = [
+        ":make_hex_script",
+        ":dummy_binary",
+    ],
+    visibility = ["//visibility:public"],
+)

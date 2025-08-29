@@ -1,0 +1,27 @@
+{
+  "name": "simple_core",
+  "description": "Simple RISC-V CPU Core",
+  "author": "RISC-V SDE Team",
+  "version": "0.1",
+  "verilog_files": [
+    "simple_core.v"
+  ],
+  "simulator": "iverilog",
+  "memory": {
+    "base_address": "0x00000000",
+    "size": "64K",
+    "word_size": 4
+  },
+  "uart": {
+    "base_address": "0x02000000"
+  },
+  "features": [
+    "RV32I",
+    "Memory-mapped UART",
+    "Basic instruction set support"
+  ],
+  "parameters": {
+    "PROGADDR_RESET": "32'h00000000",
+    "STACKADDR": "32'h00010000"
+  }
+}

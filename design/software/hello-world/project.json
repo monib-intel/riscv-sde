@@ -3,7 +3,7 @@
   "description": "Hello World example for RISC-V",
   "template": "hello-world",
   "target": "riscv32i-unknown-none-elf",
-  "core": "picorv32",
+  "core": "simple_core",
   "memory": {
     "origin": "0x00000000",
     "length": "64K"

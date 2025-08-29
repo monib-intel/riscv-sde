@@ -1,0 +1,12 @@
+# BUILD file for simple_core RTL
+filegroup(
+    name = "simple_core_rtl",
+    srcs = ["simple_core.v"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "core_json",
+    srcs = ["core.json"],
+    visibility = ["//visibility:public"],
+)

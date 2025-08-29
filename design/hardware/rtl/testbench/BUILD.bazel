@@ -1,0 +1,6 @@
+# BUILD file for testbench
+filegroup(
+    name = "universal_testbench",
+    srcs = ["universal_tb.sv"],
+    visibility = ["//visibility:public"],
+)
