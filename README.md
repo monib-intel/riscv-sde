@@ -62,49 +62,116 @@ riscv-ppa-study/
 
 ```mermaid
 graph LR
-    subgraph "📋 Design (What we study)"
-        D1[Software Applications<br/>FFT, Matrix, Crypto]
-        D2[Hardware Cores<br/>Rocket, VexRiscv, CVA6]
-        D3[Technology Nodes<br/>Sky130, Generic, Future]
+    subgraph "Design"
+        D1[Software]
+        D2[Hardware]
+        D3[Technology]
     end
     
-    subgraph "🔄 Flows (How we study)"
-        F1[Compilation Flow<br/>Rust → RISC-V binaries]
-        F2[Simulation Flow<br/>RTL + software → traces]
-        F3[Synthesis Flow<br/>RTL + PDK → silicon]
-        F4[Analysis Flow<br/>Results → insights]
+    subgraph "Flows"
+        F1[Compilation]
+        F2[Simulation]
+        F3[Synthesis]
+        F4[Analysis]
     end
     
-    subgraph "🏭 Infrastructure (Where we study)"
-        I1[Nix Environment<br/>Reproducible tools]
-        I2[Kubernetes Cluster<br/>Distributed compute]
-        I3[Bazel Cache<br/>Build artifacts]
-        I4[Prefect Workers<br/>Task execution]
+    subgraph "Infrastructure"
+        I1[Nix]
+        I2[Kubernetes]
+        I3[Bazel]
     end
     
-    subgraph "🎯 Targets (What we produce)"
-        T1[3D PPA Visualizations<br/>Performance comparisons]
-        T2[Design Recommendations<br/>Optimal configurations]
-        T3[Scaling Studies<br/>Technology insights]
+    subgraph "Targets"
+        T1[PPA Visualizations]
+        T2[Design Recommendations]
     end
     
-    D1 -->|flows through| F1
-    D2 -->|flows through| F2
-    D3 -->|flows through| F3
+    D1 & D2 & D3 --> F1 & F2 & F3
+    F1 & F2 & F3 & F4 --> I1 & I2 & I3
+    I1 & I2 & I3 --> T1 & T2
+```
+
+## Tool Philosophy: Composition of Simple, Well-Defined Tools
+
+```mermaid
+graph LR
+    A["Nix<br/>Dependencies"] --> B["Bazel<br/>Builds"]  
+    B --> C["Prefect<br/>Workflows"]
+    C --> D["Kubernetes<br/>Compute"]
     
-    F1 -->|executes on| I1
-    F2 -->|executes on| I2
-    F3 -->|executes on| I3
-    F4 -->|executes on| I4
+    style A fill:#e3f2fd
+    style B fill:#f3e5f5  
+    style C fill:#e8f5e8
+    style D fill:#fff8e1
+```
+
+## Prefect Pipeline Flow
+
+```mermaid
+graph TD
+    A[Start PPA Study] --> B[Configure Parameters]
+    B --> C[Compile Software]
     
-    I1 -->|produces| T1
-    I2 -->|produces| T2
-    I3 -->|produces| T3
+    C --> D[Simulate on Cores]
+    D --> E[Generate Switching Activity]
+    E --> F[Synthesize with PDKs]
+    F --> G[Place & Route]
     
-    style D1 fill:#e3f2fd
-    style F1 fill:#f3e5f5
-    style I1 fill:#e8f5e8
-    style T1 fill:#fff8e1
+    G --> H[Power Analysis]
+    D --> I[Performance Analysis]
+    G --> J[Area Analysis]
+    
+    H & I & J --> K[Generate PPA Report]
+    K --> L[Visualization & Recommendations]
+    
+    style A fill:#e1f5fe
+    style K fill:#f3e5f5
+    style L fill:#e8f5e8
+```
+
+## Architecture Stack
+
+```mermaid
+graph TB
+    subgraph Analysis
+        A1[PPA Visualization]
+    end
+    
+    subgraph Orchestration
+        O1[Prefect Controller]
+    end
+    
+    subgraph Build
+        B1[Bazel Compilation]
+    end
+    
+    subgraph Verification
+        V1[Universal Testbench]
+    end
+    
+    subgraph Hardware
+        HD1[RTL Cores]
+    end
+    
+    subgraph Physical
+        PI1[Synthesis and PnR]
+    end
+    
+    subgraph Technology
+        T1[PDKs]
+    end
+    
+    subgraph Infrastructure
+        I1[Compute Resources]
+    end
+    
+    A1 --> O1 --> B1 --> V1 --> HD1 --> PI1 --> T1
+    O1 --> I1
+    
+    style A1 fill:#e3f2fd
+    style O1 fill:#f3e5f5  
+    style V1 fill:#e8f5e8
+    style PI1 fill:#fff8e1
 ```
 
 ## Tool Philosophy: Composition of Simple, Well-Defined Tools
@@ -263,7 +330,7 @@ graph TB
     end
     
     subgraph "Physical Implementation Layer"
-        PI1[Synthesis (RTL → Gates)]
+        PI1[Synthesis]
         PI2[Place & Route]  
         PI3[Technology Mapping]
         PI4[Power/Timing Analysis]
