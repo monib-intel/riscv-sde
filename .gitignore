@@ -48,6 +48,8 @@ coverage.xml
 
 # Bazel
 bazel-*
+target/bazel-*
+target/.bazel-cache/
 .bazelrc.user
 
 # OS specific
@@ -57,3 +59,4 @@ Thumbs.db
 
 # Project specific
 analysis/targets/
+output/

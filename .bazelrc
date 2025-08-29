@@ -1,0 +1,17 @@
+# Bazel configuration file
+
+# Output directories - organize all bazel outputs in output/
+build --symlink_prefix=output/bazel-
+test --symlink_prefix=output/bazel-
+
+# Cache directories
+build --disk_cache=output/.bazel-cache
+
+# Build settings
+build --jobs=auto
+build --show_timestamps
+build --color=yes
+
+# Test settings
+test --test_output=errors
+test --test_summary=detailed

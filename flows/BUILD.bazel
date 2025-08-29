@@ -1,0 +1,69 @@
+# BUILD file for flows directory
+
+load("@rules_python//python:defs.bzl", "py_library")
+
+# All flow files as a library
+py_library(
+    name = "all_flow_files",
+    srcs = glob(["*.py"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@pip//prefect",
+        "@pip//numpy", 
+        "@pip//pandas",
+        "@pip//pyyaml",
+    ],
+)
+
+# Individual flow libraries
+py_library(
+    name = "software_flow",
+    srcs = ["software_flow.py"],
+    deps = [
+        ":utils",
+        "@pip_deps//prefect",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "simulation_flow", 
+    srcs = ["simulation_flow.py"],
+    deps = [
+        ":utils",
+        "@pip_deps//prefect",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "synthesis_flow",
+    srcs = ["synthesis_flow.py"], 
+    deps = [
+        ":utils",
+        "@pip_deps//prefect",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "analysis_flow",
+    srcs = ["analysis_flow.py"],
+    deps = [
+        ":utils", 
+        "@pip_deps//prefect",
+        "@pip_deps//matplotlib",
+        "@pip_deps//pandas",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "utils",
+    srcs = glob(["utils/*.py"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "@pip_deps//pyyaml",
+        "@pip_deps//numpy",
+    ],
+)

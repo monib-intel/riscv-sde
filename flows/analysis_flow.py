@@ -8,11 +8,16 @@ generating PPA (Power, Performance, Area) reports and visualizations.
 
 import os
 import sys
-from prefect import task, Flow
+from prefect import task, flow
+import logging
 
 # Import utilities
-from flows.utils.config import get_analysis_config
+from flows.utils.config import get_analysis_config, load_config
 from flows.utils.visualization import generate_plots, generate_report
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @task
 def analyze_results(sim_results, synth_results, study_params):
@@ -92,29 +97,35 @@ def analyze_results(sim_results, synth_results, study_params):
     
     return results
 
+@flow(name="PPA Analysis Flow")
+def analysis_flow():
+    """Main PPA analysis flow."""
+    logger.info("Starting Stage 4: PPA Analysis")
+    
+    # Load configuration and run prerequisite flows
+    config = load_config()
+    from flows.software_flow import compile_software
+    from flows.simulation_flow import run_simulations
+    from flows.synthesis_flow import run_synthesis
+    
+    sw_artifacts = compile_software(config)
+    sim_results = run_simulations(sw_artifacts, config)
+    synth_results = run_synthesis(sim_results, config)
+    
+    # Run the analysis
+    analysis_results = analyze_results(sim_results, synth_results, config)
+    
+    logger.info("✅ Stage 4: PPA Analysis completed successfully!")
+    return analysis_results
+
 def main():
     """Main entry point for analysis flow when run standalone."""
-    
-    # Create the flow
-    with Flow("PPA Analysis") as flow:
-        # Load a default configuration for standalone execution
-        from flows.utils.config import load_config
-        from flows.software_flow import compile_software
-        from flows.simulation_flow import run_simulations
-        from flows.synthesis_flow import run_synthesis
-        
-        config = load_config()
-        sw_artifacts = compile_software(config)
-        sim_results = run_simulations(sw_artifacts, config)
-        synth_results = run_synthesis(sim_results, config)
-        
-        # Run the analysis
-        analysis_results = analyze_results(sim_results, synth_results, config)
-    
-    # Run the flow
-    flow_state = flow.run()
-    
-    return flow_state.is_successful()
+    try:
+        result = analysis_flow()
+        return True
+    except Exception as e:
+        logger.error(f"Analysis flow failed with error: {e}")
+        return False
 
 if __name__ == "__main__":
     success = main()

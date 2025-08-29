@@ -8,11 +8,16 @@ including synthesis, place and route, and power analysis.
 
 import os
 import sys
-from prefect import task, Flow
+from prefect import task, flow
+import logging
 
 # Import utilities
-from flows.utils.config import get_synthesis_config
+from flows.utils.config import get_synthesis_config, load_config
 from flows.utils.tools import run_yosys, run_openroad
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @task
 def run_synthesis(sim_results, study_params):
@@ -70,27 +75,33 @@ def run_synthesis(sim_results, study_params):
     
     return results
 
+@flow(name="Synthesis and PNR Flow")
+def synthesis_flow():
+    """Main synthesis and P&R flow."""
+    logger.info("Starting Stage 3: Synthesis and PNR")
+    
+    # Load configuration and run prerequisite flows
+    config = load_config()
+    from flows.software_flow import compile_software
+    from flows.simulation_flow import run_simulations
+    
+    sw_artifacts = compile_software(config)
+    sim_results = run_simulations(sw_artifacts, config)
+    
+    # Run the synthesis
+    synth_results = run_synthesis(sim_results, config)
+    
+    logger.info("✅ Stage 3: Synthesis and PNR completed successfully!")
+    return synth_results
+
 def main():
     """Main entry point for synthesis flow when run standalone."""
-    
-    # Create the flow
-    with Flow("Synthesis and P&R") as flow:
-        # Load a default configuration for standalone execution
-        from flows.utils.config import load_config
-        from flows.software_flow import compile_software
-        from flows.simulation_flow import run_simulations
-        
-        config = load_config()
-        sw_artifacts = compile_software(config)
-        sim_results = run_simulations(sw_artifacts, config)
-        
-        # Run the synthesis
-        synth_results = run_synthesis(sim_results, config)
-    
-    # Run the flow
-    flow_state = flow.run()
-    
-    return flow_state.is_successful()
+    try:
+        result = synthesis_flow()
+        return True
+    except Exception as e:
+        logger.error(f"Synthesis flow failed with error: {e}")
+        return False
 
 if __name__ == "__main__":
     success = main()

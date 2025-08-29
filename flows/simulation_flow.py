@@ -8,11 +8,16 @@ collecting performance metrics and generating switching activity for power analy
 
 import os
 import sys
-from prefect import task, Flow
+from prefect import task, flow
+import logging
 
 # Import utilities
-from flows.utils.config import get_simulation_config
+from flows.utils.config import get_simulation_config, load_config
 from flows.utils.tools import run_verilator, run_vcs
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @task
 def run_simulations(sw_artifacts, study_params):
@@ -57,25 +62,30 @@ def run_simulations(sw_artifacts, study_params):
     
     return results
 
+@flow(name="RTL Simulation Flow")
+def simulation_flow():
+    """Main RTL simulation flow."""
+    logger.info("Starting Stage 2: RTL Simulation")
+    
+    # Load configuration and compile software first
+    config = load_config()
+    from flows.software_flow import compile_software
+    sw_artifacts = compile_software(config)
+    
+    # Run the simulations
+    sim_results = run_simulations(sw_artifacts, config)
+    
+    logger.info("✅ Stage 2: RTL simulation completed successfully!")
+    return sim_results
+
 def main():
     """Main entry point for simulation flow when run standalone."""
-    
-    # Create the flow
-    with Flow("RTL Simulation") as flow:
-        # Load a default configuration for standalone execution
-        from flows.utils.config import load_config
-        from flows.software_flow import compile_software
-        
-        config = load_config()
-        sw_artifacts = compile_software(config)
-        
-        # Run the simulations
-        sim_results = run_simulations(sw_artifacts, config)
-    
-    # Run the flow
-    flow_state = flow.run()
-    
-    return flow_state.is_successful()
+    try:
+        result = simulation_flow()
+        return True
+    except Exception as e:
+        logger.error(f"Simulation flow failed with error: {e}")
+        return False
 
 if __name__ == "__main__":
     success = main()

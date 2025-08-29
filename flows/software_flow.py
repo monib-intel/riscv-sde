@@ -8,12 +8,16 @@ producing binaries and executable files for simulation and analysis.
 
 import os
 import sys
-from prefect import task, Flow
-from prefect.engine.results import LocalResult
+from prefect import task, flow
+import logging
 
 # Import utilities
-from flows.utils.config import get_software_config
+from flows.utils.config import get_software_config, load_config
 from flows.utils.bazel import bazel_build
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 @task
 def compile_software(study_params):
@@ -42,22 +46,28 @@ def compile_software(study_params):
     
     return artifacts
 
+@flow(name="Software Compilation Flow")
+def software_compilation_flow():
+    """Main software compilation flow."""
+    logger.info("Starting Stage 1: Software Compilation")
+    
+    # Load configuration
+    config = load_config()
+    
+    # Run the compilation
+    artifacts = compile_software(config)
+    
+    logger.info("✅ Stage 1: Software compilation completed successfully!")
+    return artifacts
+
 def main():
     """Main entry point for software compilation flow when run standalone."""
-    
-    # Create the flow
-    with Flow("Software Compilation") as flow:
-        # Load a default configuration for standalone execution
-        from flows.utils.config import load_config
-        config = load_config()
-        
-        # Run the compilation
-        artifacts = compile_software(config)
-    
-    # Run the flow
-    flow_state = flow.run()
-    
-    return flow_state.is_successful()
+    try:
+        result = software_compilation_flow()
+        return True
+    except Exception as e:
+        logger.error(f"Software compilation flow failed with error: {e}")
+        return False
 
 if __name__ == "__main__":
     success = main()
