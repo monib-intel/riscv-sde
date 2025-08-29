@@ -8,16 +8,16 @@ To run all tests:
 
 ```bash
 # From the project root
-pytest tests/
+pytest validate/tests/
 
 # Or for more verbosity
-pytest -v tests/
+pytest -v validate/tests/
 ```
 
 To run a specific test file:
 
 ```bash
-pytest tests/test_dependencies.py
+pytest validate/tests/test_dependencies.py
 ```
 
 ## Test Categories

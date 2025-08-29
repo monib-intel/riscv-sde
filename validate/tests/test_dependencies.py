@@ -12,7 +12,7 @@ import tomli
 from pathlib import Path
 
 # Define the project root
-PROJECT_ROOT = Path(__file__).parent.parent.absolute()
+PROJECT_ROOT = Path(__file__).parent.parent.parent.absolute()
 
 def test_python_packages():
     """Test that all required Python packages from pyproject.toml are installed."""
@@ -219,12 +219,13 @@ def test_project_structure():
     """Test that critical project directories and files exist."""
     # Key directories that should exist
     critical_directories = [
-        "analysis",
-        "configs",
-        "dependencies",
+        "analyze",
+        "build", 
+        "build/configs",
+        "build/flows",
+        "build/infrastructure",
         "design",
-        "flows",
-        "infrastructure",
+        "validate",
     ]
     
     # Key files that should exist
@@ -232,9 +233,9 @@ def test_project_structure():
         "WORKSPACE.bazel",
         "MODULE.bazel",
         "pyproject.toml",
-        "flows/software_flow.py",
-        "flows/utils/config.py",
-        "flows/utils/bazel.py",
+        "build/flows/software_flow.py",
+        "build/flows/utils/config.py",
+        "build/flows/utils/bazel.py",
     ]
     
     for directory in critical_directories:
@@ -251,7 +252,7 @@ def test_config_loading():
     """Test that configuration loading works correctly."""
     # Import the configuration utilities
     sys.path.insert(0, str(PROJECT_ROOT))
-    from flows.utils.config import load_config, get_software_config
+    from build.flows.utils.config import load_config, get_software_config
     
     # Test default config loading
     config = load_config()
@@ -268,7 +269,7 @@ def test_bazel_build_function():
     """Test that the bazel_build function is properly defined."""
     # Import the bazel utility
     sys.path.insert(0, str(PROJECT_ROOT))
-    from flows.utils.bazel import bazel_build
+    from build.flows.utils.bazel import bazel_build
     
     # Test function existence and signature
     assert callable(bazel_build), "bazel_build should be a callable function"

@@ -1,14 +1,15 @@
 # Root BUILD.bazel file for RISC-V PPA Study
 
+load("@rules_python//python:defs.bzl", "py_test", "py_binary")
+
 # Stage 0: Environment and Infrastructure Verification
-sh_test(
+py_test(
     name = "verify_environment",
-    srcs = ["run_stage0.sh"],
+    srcs = ["validate/tests/test_dependencies.py"],
+    main = "validate/tests/test_dependencies.py",
     data = [
-        "tests/test_dependencies.py",
         "pyproject.toml",
-        "requirements.txt",
-    ] + glob(["flows/*.py", "flows/utils/*.py"], allow_empty = True),
+    ] + glob(["build/flows/*.py", "build/flows/utils/*.py"], allow_empty = True),
     tags = [
         "stage0",
         "verification",
@@ -18,12 +19,23 @@ sh_test(
     size = "small",
 )
 
+# Setup command - equivalent to setup.sh
+py_binary(
+    name = "setup",
+    srcs = ["build/scripts/setup.py"],
+    data = [
+        "pyproject.toml",
+    ],
+    main = "build/scripts/setup.py",
+    tags = ["setup", "manual"],
+)
+
 # Helper rule to group all flow files
 filegroup(
     name = "flow_files",
     srcs = glob([
-        "flows/*.py",
-        "configs/**/*",
+        "build/flows/*.py",
+        "build/configs/**/*",
     ], allow_empty = True),
     visibility = ["//visibility:public"],
 )

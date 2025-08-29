@@ -40,7 +40,7 @@ Nix provides a reproducible development environment with all tools pre-configure
 curl -L https://nixos.org/nix/install | sh
 
 # Enter the Nix shell
-cd infrastructure/nix
+cd build/infrastructure/nix
 nix-shell
 ```
 
@@ -108,7 +108,7 @@ riscv64-unknown-elf-gcc --version
 Run the dependency tests to ensure everything is set up correctly:
 
 ```bash
-python -m pytest tests/test_dependencies.py -v
+python -m pytest validate/tests/test_dependencies.py -v
 ```
 
 This will check for:
@@ -124,11 +124,11 @@ The project is organized into the following main directories:
 - `design/`: Hardware and software designs under study
   - `hardware/`: RTL cores and physical implementation
   - `software/`: Benchmark applications
-- `flows/`: Process definitions and orchestration
-- `infrastructure/`: Development and execution environment
+- `build/flows/`: Process definitions and orchestration
+- `build/infrastructure/`: Development and execution environment
 - `analysis/`: Results processing and visualization
 - `docs/`: Documentation
-- `configs/`: Configuration files
+- `build/configs/`: Configuration files
 - `dependencies/`: Git submodules and external dependencies
 - `third_party/`: Third-party libraries and tools
 
@@ -139,14 +139,14 @@ The project is organized into the following main directories:
 Edit the configuration file to specify cores, benchmarks, and PDKs:
 
 ```bash
-vim configs/default.yaml
+vim build/configs/default.yaml
 ```
 
 ### 2. Run the Complete Flow
 
 ```bash
 # Run the complete PPA study
-python flows/main_study_flow.py --config configs/default.yaml
+python build/flows/main_study_flow.py --config build/configs/default.yaml
 ```
 
 ### 3. Run Individual Flows
@@ -155,16 +155,16 @@ You can also run individual parts of the flow:
 
 ```bash
 # Compile software only
-python flows/software_flow.py --config configs/default.yaml
+python build/flows/software_flow.py --config build/configs/default.yaml
 
 # Run RTL simulations
-python flows/simulation_flow.py --config configs/default.yaml
+python build/flows/simulation_flow.py --config build/configs/default.yaml
 
 # Run synthesis and physical implementation
-python flows/synthesis_flow.py --config configs/default.yaml
+python build/flows/synthesis_flow.py --config build/configs/default.yaml
 
 # Generate analysis and visualizations
-python flows/analysis_flow.py --config configs/default.yaml
+python build/flows/analysis_flow.py --config build/configs/default.yaml
 ```
 
 ## Using Kubernetes for Distributed Execution
@@ -173,8 +173,8 @@ For large studies, you can distribute the workload using Kubernetes:
 
 ```bash
 # Apply Kubernetes configuration
-kubectl apply -f infrastructure/kubernetes/config.yaml
-kubectl apply -f infrastructure/kubernetes/job.yaml
+kubectl apply -f build/infrastructure/kubernetes/config.yaml
+kubectl apply -f build/infrastructure/kubernetes/job.yaml
 
 # Check job status
 kubectl get jobs -n silicon-design

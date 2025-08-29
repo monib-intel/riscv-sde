@@ -8,10 +8,7 @@ py_library(
     srcs = glob(["*.py"]),
     visibility = ["//visibility:public"],
     deps = [
-        "@pip//prefect",
-        "@pip//numpy", 
-        "@pip//pandas",
-        "@pip//pyyaml",
+        ":utils",
     ],
 )
 
@@ -21,7 +18,6 @@ py_library(
     srcs = ["software_flow.py"],
     deps = [
         ":utils",
-        "@pip_deps//prefect",
     ],
     visibility = ["//visibility:public"],
 )
@@ -31,7 +27,6 @@ py_library(
     srcs = ["simulation_flow.py"],
     deps = [
         ":utils",
-        "@pip_deps//prefect",
     ],
     visibility = ["//visibility:public"],
 )
@@ -41,7 +36,6 @@ py_library(
     srcs = ["synthesis_flow.py"], 
     deps = [
         ":utils",
-        "@pip_deps//prefect",
     ],
     visibility = ["//visibility:public"],
 )
@@ -51,9 +45,6 @@ py_library(
     srcs = ["analysis_flow.py"],
     deps = [
         ":utils", 
-        "@pip_deps//prefect",
-        "@pip_deps//matplotlib",
-        "@pip_deps//pandas",
     ],
     visibility = ["//visibility:public"],
 )
@@ -62,8 +53,4 @@ py_library(
     name = "utils",
     srcs = glob(["utils/*.py"]),
     visibility = ["//visibility:public"],
-    deps = [
-        "@pip_deps//pyyaml",
-        "@pip_deps//numpy",
-    ],
 )

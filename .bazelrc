@@ -15,3 +15,9 @@ build --color=yes
 # Test settings
 test --test_output=errors
 test --test_summary=detailed
+
+# Python environment - use virtual environment when available
+test --test_env=VIRTUAL_ENV
+test --test_env=PATH
+test --action_env=VIRTUAL_ENV
+test --action_env=PATH

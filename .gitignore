@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
+# build/  # Commented out since we use build/ for source code now
 develop-eggs/
 dist/
 downloads/
@@ -51,6 +51,8 @@ bazel-*
 target/bazel-*
 target/.bazel-cache/
 .bazelrc.user
+MODULE.bazel.lock
+uv.lock
 
 # OS specific
 .DS_Store
