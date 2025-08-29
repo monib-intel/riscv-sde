@@ -10,6 +10,7 @@ riscv-ppa-study/
 ├── .bazelrc                        # Bazel configuration
 ├── README.md                       # Project documentation
 │
+├── dependencies                    # Any dependencies
 ├── design/                         # Design artifacts (what we're studying)
 │   ├── software/                   # Software applications and benchmarks
 │   │   ├── common/                 # Shared utilities and profiling
@@ -25,9 +26,8 @@ riscv-ppa-study/
 │       │   └── common/             # Shared RTL components
 │       │
 │       └── physical/               # Physical implementation (PDK-dependent)
-│           ├── sky130/             # SkyWater 130nm implementation
-│           ├── generic/            # Generic/educational PDK
-│           ├── future_nodes/       # Advanced technology nodes
+│           ├── pdks/               # SkyWater 130nm implementation
+│               ├── sky130/         # SkyWater 130nm implementation
 │           └── common/             # PDK-independent utilities
 │
 ├── flows/                          # Process definitions (how designs flow through infrastructure)

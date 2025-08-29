@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: riscv-ppa-study
+  namespace: silicon-design
+spec:
+  backoffLimit: 3
+  template:
+    spec:
+      containers:
+      - name: ppa-study
+        image: risc-v-ppa-study:latest
+        command: ["python", "flows/main_study_flow.py"]
+        resources:
+          requests:
+            memory: "4Gi"
+            cpu: "2"
+          limits:
+            memory: "8Gi"
+            cpu: "4"
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/configs
+        - name: results-volume
+          mountPath: /app/analysis/targets
+      volumes:
+      - name: config-volume
+        configMap:
+          name: riscv-ppa-study-config
+      - name: results-volume
+        persistentVolumeClaim:
+          claimName: ppa-results-pvc
+      restartPolicy: Never

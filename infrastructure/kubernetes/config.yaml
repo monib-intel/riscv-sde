@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: riscv-ppa-study-config
+  namespace: silicon-design
+data:
+  config.yaml: |
+    # PPA Study Configuration
+    cores:
+      - name: rocket
+        type: riscv
+        width: 32
+        features:
+          - rv32i
+          - m
+          - c
+      - name: vexriscv
+        type: riscv
+        width: 32
+        features:
+          - rv32i
+          - m
+          - c
+      - name: cva6
+        type: riscv
+        width: 64
+        features:
+          - rv64gc
+    
+    pdks:
+      - name: sky130
+        node: 130nm
+      - name: generic
+        node: 45nm
+    
+    benchmarks:
+      - name: fft
+        category: dsp
+      - name: matrix_mult
+        category: compute
+      - name: sha256
+        category: crypto
+    
+    simulation:
+      max_cycles: 10000000
+      trace_enabled: true
+      
+    synthesis:
+      clock_period_ns: 10.0
+      utilization_target: 0.7

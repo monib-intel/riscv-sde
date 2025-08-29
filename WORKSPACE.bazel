@@ -1,0 +1,37 @@
+workspace(name = "risc_v_ppa_study")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Configure RISC-V toolchain
+http_archive(
+    name = "riscv_toolchain",
+    urls = ["https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2023.03.14/riscv64-unknown-elf-gcc-2023.03.14-x86_64-linux-ubuntu14.tar.gz"],
+    sha256 = "a71fc8014f895004f87fbc8b3012f7a5159bf5a52dbf2d36af16b2733cf6de90",
+    strip_prefix = "riscv64-unknown-elf-gcc-2023.03.14-x86_64-linux-ubuntu14",
+)
+
+# Configure Verilator for simulation
+http_archive(
+    name = "verilator",
+    urls = ["https://github.com/verilator/verilator/archive/refs/tags/v5.006.tar.gz"],
+    sha256 = "5540557e3c579a9d4ea7ae5a0c73c0b3c5de57e5eba17e59ed455f29e89377c4",
+    strip_prefix = "verilator-5.006",
+    build_file = "//flows/bazel:verilator.BUILD",
+)
+
+# Configure Yosys for synthesis
+http_archive(
+    name = "yosys",
+    urls = ["https://github.com/YosysHQ/yosys/archive/refs/tags/yosys-0.25.tar.gz"],
+    sha256 = "cebd6a2a559760b9bb0a0c0c9a2361c126637512fe897c33f7930cbc6e1ebc50",
+    strip_prefix = "yosys-yosys-0.25",
+    build_file = "//flows/bazel:yosys.BUILD",
+)
+
+# External dependencies for Python flows
+http_archive(
+    name = "rules_python",
+    sha256 = "d71d2c67e0bce986e1c5a7731b4693226867c45bfe0b7c5e0067228a536fc580",
+    strip_prefix = "rules_python-0.29.0",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/0.29.0/rules_python-0.29.0.tar.gz",
+)

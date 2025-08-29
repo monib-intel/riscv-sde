@@ -1,0 +1,142 @@
+module universal_testbench (
+    // No external ports - this is a self-contained testbench
+);
+
+// Clock and reset generation
+reg clk = 0;
+reg rst_n = 0;
+
+// Always toggle clock
+always #5 clk = ~clk;
+
+// Memory model for instruction memory
+reg [31:0] imem [0:4095]; // 16KB instruction memory
+wire [31:0] imem_addr;
+reg [31:0] imem_data;
+wire imem_en;
+
+// Memory model for data memory
+reg [31:0] dmem [0:4095]; // 16KB data memory
+wire [31:0] dmem_addr;
+wire [31:0] dmem_wdata;
+reg [31:0] dmem_rdata;
+wire dmem_en;
+wire dmem_we;
+
+// Debug interface
+wire [31:0] debug_pc;
+wire [31:0] debug_instr;
+wire [4:0] debug_rd;
+wire [31:0] debug_rd_wdata;
+wire debug_rd_we;
+
+// Simulation control
+integer num_cycles = 0;
+integer max_cycles = 10000;
+integer i;
+
+// Performance counters
+integer num_instr = 0;
+
+// Instantiate the core
+core dut (
+    .clk(clk),
+    .rst_n(rst_n),
+    // Instruction memory interface
+    .imem_addr(imem_addr),
+    .imem_data(imem_data),
+    .imem_en(imem_en),
+    // Data memory interface
+    .dmem_addr(dmem_addr),
+    .dmem_wdata(dmem_wdata),
+    .dmem_rdata(dmem_rdata),
+    .dmem_en(dmem_en),
+    .dmem_we(dmem_we),
+    // Debug interface
+    .debug_pc(debug_pc),
+    .debug_instr(debug_instr),
+    .debug_rd(debug_rd),
+    .debug_rd_wdata(debug_rd_wdata),
+    .debug_rd_we(debug_rd_we)
+);
+
+// Instruction memory read
+always @(*) begin
+    if (imem_en) begin
+        imem_data = imem[imem_addr[13:2]]; // Word-aligned access
+    end else begin
+        imem_data = 32'h0;
+    end
+end
+
+// Data memory read/write
+always @(posedge clk) begin
+    if (dmem_en) begin
+        if (dmem_we) begin
+            dmem[dmem_addr[13:2]] <= dmem_wdata; // Word-aligned access
+        end
+        dmem_rdata <= dmem[dmem_addr[13:2]]; // Word-aligned access
+    end
+end
+
+// Load program memory
+initial begin
+    // Clear memories
+    for (i = 0; i < 4096; i = i + 1) begin
+        imem[i] = 32'h0;
+        dmem[i] = 32'h0;
+    end
+    
+    // Load program (this would be replaced with actual program loading)
+    // Example: load from file
+    // $readmemh("program.hex", imem);
+    
+    // Example: simple program (add x1, x0, x0)
+    imem[0] = 32'h00000033; // add x0, x0, x0
+    imem[1] = 32'h00100093; // addi x1, x0, 1
+    imem[2] = 32'h00108113; // addi x2, x1, 1
+    imem[3] = 32'h00208193; // addi x3, x1, 2
+    imem[4] = 32'h00310233; // add x4, x2, x3
+    
+    // Test parameters (can be overridden from command line)
+    if (!$value$plusargs("max_cycles=%d", max_cycles)) begin
+        max_cycles = 10000; // Default if not specified
+    end
+    
+    // Start simulation
+    rst_n = 0;
+    #20 rst_n = 1;
+    
+    // Wait for simulation to finish
+    #10;
+    
+    // Run simulation
+    while (num_cycles < max_cycles) begin
+        @(posedge clk);
+        num_cycles = num_cycles + 1;
+        
+        // Count instructions (when they retire)
+        if (debug_rd_we && debug_rd != 0) begin
+            num_instr = num_instr + 1;
+        end
+        
+        // Check for simulation end conditions
+        // For example, specific instruction or PC value
+        // if (debug_pc == END_PC) break;
+    end
+    
+    // Report statistics
+    $display("Simulation finished after %d cycles", num_cycles);
+    $display("Executed %d instructions", num_instr);
+    $display("CPI: %f", num_cycles * 1.0 / (num_instr > 0 ? num_instr : 1));
+    
+    $finish;
+end
+
+// VCD dumping for power analysis
+initial begin
+    $dumpfile("sim.vcd");
+    $dumpvars(0, universal_testbench);
+end
+
+endmodule
