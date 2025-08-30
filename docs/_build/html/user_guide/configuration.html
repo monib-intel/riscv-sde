@@ -1,0 +1,372 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Workflows" href="workflows.html" />
+    <link rel="prev" title="Project Structure" href="project_structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file-format">Configuration File Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#default-configuration">Default Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-sections">Configuration Sections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cores">Cores</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#core-configuration">Core Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simulator-options">Simulator Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#synthesis-options">Synthesis Options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#output-directory">Output Directory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-configuration-files">Using Configuration Files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#command-line">Command Line</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-custom-configurations">Creating Custom Configurations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-schema">Configuration Schema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-hierarchy">Configuration Hierarchy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user_guide/configuration.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h1>
+<p>The RISC-V Silicon Design Environment uses configuration files to control various aspects of the design, simulation, and analysis flows. This document explains how to create and customize configuration files for your specific needs.</p>
+<section id="configuration-file-format">
+<h2>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Link to this heading"></a></h2>
+<p>Configuration files use YAML format, which provides a human-readable structure that is easy to edit and understand. The basic structure includes:</p>
+<ul class="simple">
+<li><p>Core selection</p></li>
+<li><p>Benchmark selection</p></li>
+<li><p>Core-specific configuration</p></li>
+<li><p>Output directory specification</p></li>
+</ul>
+</section>
+<section id="default-configuration">
+<h2>Default Configuration<a class="headerlink" href="#default-configuration" title="Link to this heading"></a></h2>
+<p>The default configuration file is located at <code class="docutils literal notranslate"><span class="pre">build/configs/simple_core_test.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_core</span>
+<span class="nt">benchmarks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello-world</span>
+<span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">simple_core</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output/simple_core_test</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-sections">
+<h2>Configuration Sections<a class="headerlink" href="#configuration-sections" title="Link to this heading"></a></h2>
+<section id="cores">
+<h3>Cores<a class="headerlink" href="#cores" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cores</span></code> section lists the RISC-V cores to use in the flow:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_core</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">picorv32</span>
+</pre></div>
+</div>
+<p>Available cores include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">simple_core</span></code>: A simple RISC-V core implementation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">picorv32</span></code>: The PicoRV32 RISC-V implementation</p></li>
+</ul>
+</section>
+<section id="benchmarks">
+<h3>Benchmarks<a class="headerlink" href="#benchmarks" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">benchmarks</span></code> section lists the software benchmarks to compile and run:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">benchmarks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello-world</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">matrix_mult</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fft</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crypto</span>
+</pre></div>
+</div>
+</section>
+<section id="core-configuration">
+<h3>Core Configuration<a class="headerlink" href="#core-configuration" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">cores_config</span></code> section provides specific configuration for each core:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">simple_core</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">      </span><span class="nt">dump_start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">      </span><span class="nt">dump_stop</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000000</span>
+<span class="w">    </span><span class="nt">synthesis</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">target_frequency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100</span><span class="w">  </span><span class="c1"># MHz</span>
+<span class="w">      </span><span class="nt">optimization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">area</span><span class="w">     </span><span class="c1"># area or speed</span>
+<span class="w">  </span><span class="nt">picorv32</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20000</span>
+</pre></div>
+</div>
+<section id="simulator-options">
+<h4>Simulator Options<a class="headerlink" href="#simulator-options" title="Link to this heading"></a></h4>
+<p>Common simulator options include:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trace</span></code></p></td>
+<td><p>Enable waveform tracing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_cycles</span></code></p></td>
+<td><p>Maximum simulation cycles</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dump_start</span></code></p></td>
+<td><p>Cycle to start tracing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dump_stop</span></code></p></td>
+<td><p>Cycle to stop tracing</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1000000</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code></p></td>
+<td><p>Simulation timeout in seconds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">300</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="synthesis-options">
+<h4>Synthesis Options<a class="headerlink" href="#synthesis-options" title="Link to this heading"></a></h4>
+<p>Common synthesis options include:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">target_frequency</span></code></p></td>
+<td><p>Target clock frequency in MHz</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">100</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">optimization</span></code></p></td>
+<td><p>Optimization target</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">area</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">effort</span></code></p></td>
+<td><p>Synthesis effort level</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">medium</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">technology</span></code></p></td>
+<td><p>Target technology node</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">skywater130</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="output-directory">
+<h3>Output Directory<a class="headerlink" href="#output-directory" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">output_dir</span></code> specifies where simulation and synthesis results will be stored:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output/simple_core_test</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="using-configuration-files">
+<h2>Using Configuration Files<a class="headerlink" href="#using-configuration-files" title="Link to this heading"></a></h2>
+<section id="command-line">
+<h3>Command Line<a class="headerlink" href="#command-line" title="Link to this heading"></a></h3>
+<p>Configuration files can be specified on the command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the wrapper script</span>
+./run_simulation.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+
+<span class="c1"># Using specific flow scripts</span>
+python<span class="w"> </span>build/flows/simulation_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</section>
+<section id="creating-custom-configurations">
+<h3>Creating Custom Configurations<a class="headerlink" href="#creating-custom-configurations" title="Link to this heading"></a></h3>
+<p>To create a custom configuration:</p>
+<ol class="arabic">
+<li><p>Copy an existing configuration file</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>build/configs/simple_core_test.yaml<span class="w"> </span>build/configs/my_custom_config.yaml
+</pre></div>
+</div>
+</li>
+<li><p>Edit the new configuration file</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vim<span class="w"> </span>build/configs/my_custom_config.yaml
+</pre></div>
+</div>
+</li>
+<li><p>Run with your custom configuration</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_simulation.py<span class="w"> </span>--config<span class="w"> </span>build/configs/my_custom_config.yaml
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="configuration-schema">
+<h2>Configuration Schema<a class="headerlink" href="#configuration-schema" title="Link to this heading"></a></h2>
+<p>The full configuration schema includes the following top-level sections:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Core selection</span>
+<span class="nt">cores</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">list of cores</span><span class="p p-Indicator">]</span>
+
+<span class="c1"># Benchmark selection</span>
+<span class="nt">benchmarks</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">list of benchmarks</span><span class="p p-Indicator">]</span>
+
+<span class="c1"># Core-specific configuration</span>
+<span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">core_name</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">simulator name</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">simulator options</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">synthesis</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">synthesis options</span><span class="p p-Indicator">]</span>
+<span class="w">    </span>
+<span class="c1"># Output directory</span>
+<span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">output directory path</span><span class="p p-Indicator">]</span>
+
+<span class="c1"># Optional global settings</span>
+<span class="nt">global</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parallel</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">true/false</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">log_level</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">debug/info/warning/error</span><span class="p p-Indicator">]</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-hierarchy">
+<h2>Configuration Hierarchy<a class="headerlink" href="#configuration-hierarchy" title="Link to this heading"></a></h2>
+<p>Configuration is loaded in the following order, with later sources overriding earlier ones:</p>
+<ol class="arabic simple">
+<li><p>Default values in the code</p></li>
+<li><p>Configuration file specified on the command line</p></li>
+<li><p>Command-line arguments that override specific settings</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="project_structure.html" class="btn btn-neutral float-left" title="Project Structure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="workflows.html" class="btn btn-neutral float-right" title="Workflows" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

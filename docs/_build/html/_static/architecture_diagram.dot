@@ -1,0 +1,45 @@
+digraph G {
+  rankdir=TB;
+  node [shape=box, style=filled, fillcolor=lightblue, fontname="Arial"];
+  edge [fontname="Arial"];
+  
+  subgraph cluster_build {
+    label="Build Infrastructure";
+    style=filled;
+    color=lightgrey;
+    
+    config [label="Configuration\nFiles"];
+    flows [label="Flow\nDefinitions"];
+    infra [label="Infrastructure"];
+    
+    config -> flows;
+  }
+  
+  subgraph cluster_design {
+    label="Design";
+    style=filled;
+    color=lightgrey;
+    
+    hw [label="Hardware\nRTL"];
+    sw [label="Software\nBenchmarks"];
+  }
+  
+  subgraph cluster_output {
+    label="Output";
+    style=filled;
+    color=lightgrey;
+    
+    sim_out [label="Simulation\nResults"];
+    synth_out [label="Synthesis\nResults"];
+    analysis [label="Analysis\nReports"];
+  }
+  
+  flows -> hw [label="Simulate"];
+  flows -> sw [label="Compile"];
+  hw -> sim_out;
+  sw -> sim_out;
+  hw -> synth_out;
+  sim_out -> analysis;
+  synth_out -> analysis;
+  infra -> flows [label="Execute"];
+}

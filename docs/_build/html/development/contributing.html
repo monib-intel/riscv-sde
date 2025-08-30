@@ -1,0 +1,407 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contributing Guide &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing" href="testing.html" />
+    <link rel="prev" title="API Reference" href="../reference/api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#code-of-conduct">Code of Conduct</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contribution-workflow">Contribution Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#identify-an-area-to-contribute">1. Identify an Area to Contribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#make-your-changes">2. Make Your Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-your-changes">3. Test Your Changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#submit-a-pull-request">4. Submit a Pull Request</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#code-review">5. Code Review</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#coding-standards">Coding Standards</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#python-code">Python Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verilog-code">Verilog Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bazel-build-files">Bazel Build Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-guidelines">Documentation Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-components">Adding New Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-new-core">Adding a New Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-new-benchmark">Adding a New Benchmark</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#commit-message-guidelines">Commit Message Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#questions-and-support">Questions and Support</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Contributing Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/development/contributing.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="contributing-guide">
+<h1>Contributing Guide<a class="headerlink" href="#contributing-guide" title="Link to this heading"></a></h1>
+<p>This document provides guidelines for contributing to the RISC-V Silicon Design Environment. We welcome contributions from the community to help improve the project.</p>
+<section id="code-of-conduct">
+<h2>Code of Conduct<a class="headerlink" href="#code-of-conduct" title="Link to this heading"></a></h2>
+<p>Please be respectful and considerate of others when contributing to this project. We aim to foster an inclusive and welcoming community.</p>
+</section>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Fork the Repository</strong>: Start by forking the repository on GitHub.</p></li>
+<li><p><strong>Clone Your Fork</strong>: Clone your fork to your local machine.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/your-username/silicon-design-environment.git
+<span class="nb">cd</span><span class="w"> </span>silicon-design-environment
+</pre></div>
+</div>
+</li>
+<li><p><strong>Set Up Development Environment</strong>: Follow the <a class="reference internal" href="../getting_started/installation.html"><span class="std std-doc">Installation Guide</span></a> to set up your development environment.</p></li>
+<li><p><strong>Create a Branch</strong>: Create a branch for your contribution.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature-name
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="contribution-workflow">
+<h2>Contribution Workflow<a class="headerlink" href="#contribution-workflow" title="Link to this heading"></a></h2>
+<section id="identify-an-area-to-contribute">
+<h3>1. Identify an Area to Contribute<a class="headerlink" href="#identify-an-area-to-contribute" title="Link to this heading"></a></h3>
+<p>You can contribute in several ways:</p>
+<ul class="simple">
+<li><p>Fix bugs</p></li>
+<li><p>Add new features</p></li>
+<li><p>Improve documentation</p></li>
+<li><p>Add new cores or benchmarks</p></li>
+<li><p>Enhance build system</p></li>
+</ul>
+<p>Check the GitHub issues for current tasks or create a new issue to discuss your proposed changes.</p>
+</section>
+<section id="make-your-changes">
+<h3>2. Make Your Changes<a class="headerlink" href="#make-your-changes" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Follow the <a class="reference internal" href="../user_guide/project_structure.html"><span class="std std-doc">Project Structure</span></a> guidelines.</p></li>
+<li><p>Adhere to the coding standards (see below).</p></li>
+<li><p>Write tests for new functionality.</p></li>
+<li><p>Update documentation as needed.</p></li>
+</ul>
+</section>
+<section id="test-your-changes">
+<h3>3. Test Your Changes<a class="headerlink" href="#test-your-changes" title="Link to this heading"></a></h3>
+<p>Before submitting your changes, ensure all tests pass:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run unit tests</span>
+pytest<span class="w"> </span>validate/tests/
+
+<span class="c1"># Run integration tests</span>
+./run_simulation.py<span class="w"> </span>--clean<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</section>
+<section id="submit-a-pull-request">
+<h3>4. Submit a Pull Request<a class="headerlink" href="#submit-a-pull-request" title="Link to this heading"></a></h3>
+<ol class="arabic">
+<li><p>Push your changes to your fork:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/your-feature-name
+</pre></div>
+</div>
+</li>
+<li><p>Create a pull request on GitHub.</p></li>
+<li><p>Describe your changes in detail.</p></li>
+<li><p>Link to any relevant issues.</p></li>
+</ol>
+</section>
+<section id="code-review">
+<h3>5. Code Review<a class="headerlink" href="#code-review" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Maintainers will review your pull request.</p></li>
+<li><p>Address any feedback or requested changes.</p></li>
+<li><p>Once approved, your changes will be merged.</p></li>
+</ul>
+</section>
+</section>
+<section id="coding-standards">
+<h2>Coding Standards<a class="headerlink" href="#coding-standards" title="Link to this heading"></a></h2>
+<section id="python-code">
+<h3>Python Code<a class="headerlink" href="#python-code" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Follow <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a> style guide.</p></li>
+<li><p>Use type hints where appropriate.</p></li>
+<li><p>Include docstrings for all functions, classes, and modules.</p></li>
+<li><p>Use meaningful variable and function names.</p></li>
+<li><p>Keep functions focused on a single responsibility.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_performance_metrics</span><span class="p">(</span><span class="n">simulation_results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate performance metrics from simulation results.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        simulation_results: Dictionary containing simulation results</span>
+<span class="sd">        config: Configuration dictionary</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary containing calculated performance metrics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Implementation</span>
+    <span class="k">return</span> <span class="n">metrics</span>
+</pre></div>
+</div>
+</section>
+<section id="verilog-code">
+<h3>Verilog Code<a class="headerlink" href="#verilog-code" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Follow a consistent indentation style (2 or 4 spaces).</p></li>
+<li><p>Use meaningful module, signal, and parameter names.</p></li>
+<li><p>Include comprehensive comments.</p></li>
+<li><p>Add proper port declarations.</p></li>
+<li><p>Use parameters for configurable values.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="cm">/**</span>
+<span class="cm"> * Module: alu</span>
+<span class="cm"> * Description: Arithmetic Logic Unit for RISC-V core</span>
+<span class="cm"> */</span>
+<span class="k">module</span><span class="w"> </span><span class="n">alu</span><span class="w"> </span><span class="p">#(</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">32</span><span class="w">  </span><span class="c1">// Width of the ALU</span>
+<span class="p">)</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">                </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">                </span><span class="n">reset_n</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">operand_a</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">operand_b</span><span class="p">,</span>
+<span class="w">    </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">          </span><span class="n">operation</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w">  </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">result</span><span class="p">,</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w">                 </span><span class="n">zero_flag</span>
+<span class="p">);</span>
+<span class="w">    </span><span class="c1">// Implementation</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</section>
+<section id="bazel-build-files">
+<h3>Bazel Build Files<a class="headerlink" href="#bazel-build-files" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Group related targets together.</p></li>
+<li><p>Use descriptive target names.</p></li>
+<li><p>Include comprehensive visibility declarations.</p></li>
+<li><p>Document complex build rules.</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># BUILD file for simulation components</span>
+
+<span class="c1"># RTL components</span>
+<span class="n">verilog_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;simulation_rtl&quot;</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span><span class="s2">&quot;*.v&quot;</span><span class="p">]),</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;//design/hardware/rtl/common:common_rtl&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Testbench components</span>
+<span class="n">verilog_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;testbench&quot;</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span><span class="s2">&quot;testbench/*.v&quot;</span><span class="p">]),</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;:simulation_rtl&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="documentation-guidelines">
+<h2>Documentation Guidelines<a class="headerlink" href="#documentation-guidelines" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Use Markdown for documentation.</p></li>
+<li><p>Include clear explanations and examples.</p></li>
+<li><p>Update documentation when you change code.</p></li>
+<li><p>Follow the existing documentation structure.</p></li>
+</ul>
+</section>
+<section id="adding-new-components">
+<h2>Adding New Components<a class="headerlink" href="#adding-new-components" title="Link to this heading"></a></h2>
+<section id="adding-a-new-core">
+<h3>Adding a New Core<a class="headerlink" href="#adding-a-new-core" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Create a directory in <code class="docutils literal notranslate"><span class="pre">design/hardware/rtl/cores/your_core_name/</span></code></p></li>
+<li><p>Add your RTL files</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">BUILD.bazel</span></code> file</p></li>
+<li><p>Add a testbench in <code class="docutils literal notranslate"><span class="pre">design/hardware/rtl/testbench/</span></code></p></li>
+<li><p>Update flow scripts to support your core</p></li>
+<li><p>Add documentation in <code class="docutils literal notranslate"><span class="pre">docs/reference/cores.md</span></code></p></li>
+</ol>
+</section>
+<section id="adding-a-new-benchmark">
+<h3>Adding a New Benchmark<a class="headerlink" href="#adding-a-new-benchmark" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Create a directory in <code class="docutils literal notranslate"><span class="pre">design/software/your_benchmark_name/</span></code></p></li>
+<li><p>Add your source files</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">BUILD.bazel</span></code> file</p></li>
+<li><p>Update flow scripts to recognize your benchmark</p></li>
+<li><p>Add documentation in <code class="docutils literal notranslate"><span class="pre">docs/reference/benchmarks.md</span></code></p></li>
+</ol>
+</section>
+</section>
+<section id="commit-message-guidelines">
+<h2>Commit Message Guidelines<a class="headerlink" href="#commit-message-guidelines" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Use clear and descriptive commit messages</p></li>
+<li><p>Start with a short summary line (50 characters or less)</p></li>
+<li><p>Follow with a blank line and more detailed description</p></li>
+<li><p>Reference issues or pull requests where appropriate</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Add</span> <span class="n">matrix</span> <span class="n">multiplication</span> <span class="n">benchmark</span>
+
+<span class="n">This</span> <span class="n">commit</span> <span class="n">adds</span> <span class="n">a</span> <span class="n">new</span> <span class="n">benchmark</span> <span class="k">for</span> <span class="n">matrix</span> <span class="n">multiplication</span> <span class="k">with</span> <span class="n">the</span>
+<span class="n">following</span> <span class="n">features</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">Configurable</span> <span class="n">matrix</span> <span class="n">size</span>
+<span class="o">-</span> <span class="n">Both</span> <span class="n">integer</span> <span class="ow">and</span> <span class="n">floating</span><span class="o">-</span><span class="n">point</span> <span class="n">versions</span>
+<span class="o">-</span> <span class="n">Performance</span> <span class="n">metrics</span> <span class="n">calculation</span>
+
+<span class="n">Fixes</span> <span class="c1">#42</span>
+</pre></div>
+</div>
+</section>
+<section id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Link to this heading"></a></h2>
+<p>We follow <a class="reference external" href="https://semver.org/">Semantic Versioning</a>:</p>
+<ul class="simple">
+<li><p>MAJOR version for incompatible API changes</p></li>
+<li><p>MINOR version for backwards-compatible functionality</p></li>
+<li><p>PATCH version for backwards-compatible bug fixes</p></li>
+</ul>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>By contributing to this project, you agree that your contributions will be licensed under the project’s license.</p>
+</section>
+<section id="questions-and-support">
+<h2>Questions and Support<a class="headerlink" href="#questions-and-support" title="Link to this heading"></a></h2>
+<p>If you have questions or need help, you can:</p>
+<ul class="simple">
+<li><p>Open an issue on GitHub</p></li>
+<li><p>Contact the maintainers</p></li>
+<li><p>Join the project’s communication channels (if available)</p></li>
+</ul>
+<p>Thank you for contributing to the RISC-V Silicon Design Environment!</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../reference/api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="testing.html" class="btn btn-neutral float-right" title="Testing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

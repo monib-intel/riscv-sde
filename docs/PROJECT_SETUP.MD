@@ -224,7 +224,7 @@ git submodule update --init --recursive
 - **Simulation errors**: Check RTL and testbench for compatibility issues
 - **Synthesis errors**: Verify PDK configuration and ensure RTL is synthesizable
 - **Flow orchestration errors**: Check Python dependencies and configuration files
-- **Python dependency issues**: Run `uv pip install --upgrade -r requirements.txt` to ensure all dependencies are up to date
+- **Python dependency issues**: Run `pip install --upgrade -e "."` to ensure all dependencies are up to date
 
 ### Getting Help
 

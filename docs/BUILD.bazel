@@ -1,0 +1,50 @@
+# Documentation BUILD file
+"""
+Bazel targets for building documentation.
+"""
+
+load("//build/bazel:sphinx.bzl", "sphinx_doc")
+
+# All documentation source files
+filegroup(
+    name = "docs_sources",
+    srcs = glob([
+        "**/*.md",
+        "**/*.rst",
+        "conf.py",
+        "Makefile",
+        "requirements.txt",
+        "_static/**/*",
+        "_templates/**/*",
+    ], allow_empty = True),
+    visibility = ["//visibility:public"],
+)
+
+# Build HTML documentation
+sphinx_doc(
+    name = "docs_html",
+    srcs = [":docs_sources"],
+    visibility = ["//visibility:public"],
+)
+
+# Build PDF documentation
+sphinx_doc(
+    name = "docs_pdf",
+    srcs = [":docs_sources"],
+    visibility = ["//visibility:public"],
+    data = ["Makefile"],
+    deps = [],
+)
+
+# Simple rule to extract documentation archive
+genrule(
+    name = "extract_docs",
+    srcs = [":docs_html"],
+    outs = ["extracted_docs/index.html"],
+    cmd = """
+        mkdir -p $(RULEDIR)/extracted_docs
+        tar -xzf $(location :docs_html) -C $(RULEDIR)/extracted_docs
+        touch $(RULEDIR)/extracted_docs/index.html
+    """,
+    visibility = ["//visibility:public"],
+)

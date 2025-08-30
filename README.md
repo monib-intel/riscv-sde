@@ -30,23 +30,32 @@ riscv-ppa-study/
 │               ├── sky130/         # SkyWater 130nm implementation
 │           └── common/             # PDK-independent utilities
 │
-├── flows/                          # Process definitions (how designs flow through infrastructure)
-│   ├── main_study_flow.py          # Complete PPA study orchestration
-│   ├── software_flow.py            # Software compilation and execution
-│   ├── simulation_flow.py          # RTL simulation workflows
-│   ├── synthesis_flow.py           # Physical implementation workflows
-│   ├── analysis_flow.py            # Results analysis workflows
-│   │
-│   ├── tasks/                      # Individual process steps
-│   ├── bazel/                      # Build process definitions
-│   └── utils/                      # Flow utilities and common steps
+├── build/                          # Build infrastructure and flows
+│   ├── configs/                    # Configuration files
+│   ├── flows/                      # Flow definitions and orchestration
+│   │   ├── main_study_flow.py      # Complete PPA study orchestration
+│   │   ├── software_flow.py        # Software compilation and execution
+│   │   ├── simulation_flow.py      # RTL simulation workflows
+│   │   ├── synthesis_flow.py       # Physical implementation workflows
+│   │   ├── analysis_flow.py        # Results analysis workflows
+│   │   ├── tasks/                  # Individual process steps
+│   │   └── utils/                  # Flow utilities and common steps
+│   ├── infrastructure/             # Infrastructure & environment (where we execute)
+│   │   ├── nix/                    # Reproducible tool environments
+│   │   ├── kubernetes/             # Distributed compute orchestration
+│   │   ├── terraform/              # Infrastructure provisioning
+│   │   ├── cloud-research/         # Research area for deployment tools
+│   │   └── targets/                # Hardware execution environments
+│   └── scripts/                    # Build and run scripts
+│       └── orchestration.py        # Prefect-based orchestration for all flows
 │
-├── infrastructure/                 # Infrastructure & environment (where we execute)
-│   ├── nix/                        # Reproducible tool environments
-│   ├── kubernetes/                 # Distributed compute orchestration
-│   ├── terraform/                  # Infrastructure provisioning
-│   ├── cloud-research/             # Research area for deployment tools
-│   └── targets/                    # Hardware execution environments
+├── validate/                       # Validation, testing, and simulations
+│   ├── tests/                      # Test files and scripts
+│   ├── tools/                      # Validation tools
+│   ├── output/                     # Validation outputs
+│   └── simulations/                # Simulation configurations and scripts
+│       ├── BUILD.bazel             # Bazel build rules
+│       └── scripts/                # Simulation scripts
 │
 ├── analysis/                       # Results processing and outputs
 │   ├── scripts/                    # Analysis and visualization tools

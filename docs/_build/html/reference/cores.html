@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RISC-V Cores &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Benchmarks" href="benchmarks.html" />
+    <link rel="prev" title="Workflows" href="../user_guide/workflows.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RISC-V Cores</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-available-cores">Overview of Available Cores</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simplecore">SimpleCore</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-characteristics">Performance Characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-files">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#picorv32">PicoRV32</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Configuration Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Performance Characteristics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-a-new-core">Adding a New Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#core-comparison">Core Comparison</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#performance">Performance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#feature-comparison">Feature Comparison</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#core-selection-guide">Core Selection Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#future-cores">Future Cores</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">RISC-V Cores</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/cores.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="risc-v-cores">
+<h1>RISC-V Cores<a class="headerlink" href="#risc-v-cores" title="Link to this heading"></a></h1>
+<p>The RISC-V Silicon Design Environment includes several RISC-V core implementations that can be used for simulation, synthesis, and analysis. This document provides details about each available core.</p>
+<section id="overview-of-available-cores">
+<h2>Overview of Available Cores<a class="headerlink" href="#overview-of-available-cores" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Core Name</p></th>
+<th class="head"><p>ISA</p></th>
+<th class="head"><p>Pipeline Stages</p></th>
+<th class="head"><p>Features</p></th>
+<th class="head"><p>Best For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SimpleCore</p></td>
+<td><p>RV32I</p></td>
+<td><p>3</p></td>
+<td><p>Basic implementation, easily customizable</p></td>
+<td><p>Learning, simple tests</p></td>
+</tr>
+<tr class="row-odd"><td><p>PicoRV32</p></td>
+<td><p>RV32IMC</p></td>
+<td><p>2-3</p></td>
+<td><p>Compact, configurable</p></td>
+<td><p>Area-optimized designs</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="simplecore">
+<h2>SimpleCore<a class="headerlink" href="#simplecore" title="Link to this heading"></a></h2>
+<p>SimpleCore is a basic RISC-V implementation that supports the RV32I instruction set. It is designed to be easily understandable and modifiable.</p>
+<section id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h3>
+<p>SimpleCore uses a 3-stage pipeline:</p>
+<ol class="arabic simple">
+<li><p><strong>Fetch</strong>: Fetches instructions from memory</p></li>
+<li><p><strong>Decode</strong>: Decodes instructions and reads registers</p></li>
+<li><p><strong>Execute</strong>: Executes instructions and writes results</p></li>
+</ol>
+</section>
+<section id="key-features">
+<h3>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>RV32I instruction set support</p></li>
+<li><p>Harvard architecture (separate instruction and data memory)</p></li>
+<li><p>Configurable memory sizes</p></li>
+<li><p>Simple memory-mapped I/O</p></li>
+<li><p>Easily extensible for custom instructions</p></li>
+</ul>
+</section>
+<section id="configuration-options">
+<h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Link to this heading"></a></h3>
+<p>In the configuration file (<code class="docutils literal notranslate"><span class="pre">build/configs/simple_core_test.yaml</span></code>):</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">simple_core</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+</pre></div>
+</div>
+</section>
+<section id="performance-characteristics">
+<h3>Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Clock Frequency</strong>: ~50-100 MHz (in ASIC implementations)</p></li>
+<li><p><strong>Area</strong>: ~10-20K gates</p></li>
+<li><p><strong>Power</strong>: Low</p></li>
+<li><p><strong>CPI (Cycles Per Instruction)</strong>: ~1.5-2.0</p></li>
+</ul>
+</section>
+<section id="source-files">
+<h3>Source Files<a class="headerlink" href="#source-files" title="Link to this heading"></a></h3>
+<p>The SimpleCore RTL is located in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">design</span><span class="o">/</span><span class="n">hardware</span><span class="o">/</span><span class="n">rtl</span><span class="o">/</span><span class="n">cores</span><span class="o">/</span><span class="n">simple_core</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="picorv32">
+<h2>PicoRV32<a class="headerlink" href="#picorv32" title="Link to this heading"></a></h2>
+<p>PicoRV32 is a small RISC-V CPU core that implements the RV32IMC instruction set. It’s designed to be compact and efficient.</p>
+<section id="id1">
+<h3>Architecture<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>PicoRV32 uses a minimalist design with:</p>
+<ul class="simple">
+<li><p>Single-issue in-order execution</p></li>
+<li><p>Configurable pipeline depth (2-3 stages)</p></li>
+<li><p>Shared instruction and data memory interface</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>Key Features<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>RV32IMC instruction set support</p></li>
+<li><p>Optional compressed instruction support</p></li>
+<li><p>Configurable interrupt controller</p></li>
+<li><p>AXI4-Lite interface</p></li>
+<li><p>Look-ahead instruction fetch</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Configuration Options<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>In the configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">picorv32</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20000</span>
+<span class="w">    </span><span class="nt">features</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">compressed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">multiplier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">interrupts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Performance Characteristics<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Clock Frequency</strong>: ~100-150 MHz (in ASIC implementations)</p></li>
+<li><p><strong>Area</strong>: ~15-25K gates</p></li>
+<li><p><strong>Power</strong>: Low</p></li>
+<li><p><strong>CPI (Cycles Per Instruction)</strong>: ~1.2-1.8</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Source Files<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>The PicoRV32 RTL is located in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">design</span><span class="o">/</span><span class="n">hardware</span><span class="o">/</span><span class="n">rtl</span><span class="o">/</span><span class="n">cores</span><span class="o">/</span><span class="n">picorv32</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="adding-a-new-core">
+<h2>Adding a New Core<a class="headerlink" href="#adding-a-new-core" title="Link to this heading"></a></h2>
+<p>To add a new RISC-V core to the environment:</p>
+<ol class="arabic simple">
+<li><p>Create a new directory in <code class="docutils literal notranslate"><span class="pre">design/hardware/rtl/cores/</span></code></p></li>
+<li><p>Add your RTL files to the new directory</p></li>
+<li><p>Create a <code class="docutils literal notranslate"><span class="pre">BUILD.bazel</span></code> file for your core</p></li>
+<li><p>Add a testbench in <code class="docutils literal notranslate"><span class="pre">design/hardware/rtl/testbench/</span></code></p></li>
+<li><p>Update flow scripts to support your core</p></li>
+<li><p>Add configuration options to your YAML files</p></li>
+</ol>
+<p>Example <code class="docutils literal notranslate"><span class="pre">BUILD.bazel</span></code> for a new core:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;//build/bazel:verilog.bzl&quot;</span><span class="p">,</span> <span class="s2">&quot;verilog_library&quot;</span><span class="p">)</span>
+
+<span class="n">verilog_library</span><span class="p">(</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;my_new_core_rtl&quot;</span><span class="p">,</span>
+    <span class="n">srcs</span> <span class="o">=</span> <span class="n">glob</span><span class="p">([</span><span class="s2">&quot;*.v&quot;</span><span class="p">]),</span>
+    <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;//design/hardware/rtl/common:common_rtl&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">visibility</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;//visibility:public&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="core-comparison">
+<h2>Core Comparison<a class="headerlink" href="#core-comparison" title="Link to this heading"></a></h2>
+<section id="performance">
+<h3>Performance<a class="headerlink" href="#performance" title="Link to this heading"></a></h3>
+<p>The following table shows performance metrics for the available cores on common benchmarks:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Core</p></th>
+<th class="head"><p>Dhrystone (DMIPS/MHz)</p></th>
+<th class="head"><p>CoreMark/MHz</p></th>
+<th class="head"><p>Area (kGE)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SimpleCore</p></td>
+<td><p>0.8</p></td>
+<td><p>1.2</p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-odd"><td><p>PicoRV32</p></td>
+<td><p>1.0</p></td>
+<td><p>1.5</p></td>
+<td><p>20</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="feature-comparison">
+<h3>Feature Comparison<a class="headerlink" href="#feature-comparison" title="Link to this heading"></a></h3>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>SimpleCore</p></th>
+<th class="head"><p>PicoRV32</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RV32I</p></td>
+<td><p>✅</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>RV32M</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-even"><td><p>RV32C</p></td>
+<td><p>❌</p></td>
+<td><p>✅</p></td>
+</tr>
+<tr class="row-odd"><td><p>Interrupts</p></td>
+<td><p>Basic</p></td>
+<td><p>Configurable</p></td>
+</tr>
+<tr class="row-even"><td><p>Debug</p></td>
+<td><p>Limited</p></td>
+<td><p>Full</p></td>
+</tr>
+<tr class="row-odd"><td><p>Memory Interface</p></td>
+<td><p>Simple</p></td>
+<td><p>AXI4-Lite</p></td>
+</tr>
+<tr class="row-even"><td><p>Pipeline Stages</p></td>
+<td><p>3</p></td>
+<td><p>2-3</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="core-selection-guide">
+<h2>Core Selection Guide<a class="headerlink" href="#core-selection-guide" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>For learning and teaching</strong>: Use SimpleCore for its clarity and simplicity</p></li>
+<li><p><strong>For area-optimized designs</strong>: Use PicoRV32 for its compact implementation</p></li>
+<li><p><strong>For performance</strong>: PicoRV32 generally offers better performance</p></li>
+</ul>
+</section>
+<section id="future-cores">
+<h2>Future Cores<a class="headerlink" href="#future-cores" title="Link to this heading"></a></h2>
+<p>Planned additions to the core library include:</p>
+<ul class="simple">
+<li><p>RocketCore (RV64GC)</p></li>
+<li><p>BOOM (RV64GC out-of-order)</p></li>
+<li><p>CVA6 (RV32/64GC)</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../user_guide/workflows.html" class="btn btn-neutral float-left" title="Workflows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="benchmarks.html" class="btn btn-neutral float-right" title="Benchmarks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

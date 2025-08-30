@@ -1,0 +1,13 @@
+# BUILD file for scripts in the build directory
+
+load("@rules_python//python:defs.bzl", "py_library")
+
+# Export the orchestration script
+py_library(
+    name = "scripts",
+    srcs = glob(["*.py"]),
+    visibility = ["//visibility:public"],
+)
+
+# Make orchestration.py explicitly available
+exports_files(["orchestration.py"])

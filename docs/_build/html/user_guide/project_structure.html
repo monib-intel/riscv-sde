@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Structure &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Quick Start Guide" href="../getting_started/quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Project Structure</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#top-level-directories">Top-Level Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-infrastructure-build">Build Infrastructure (<code class="docutils literal notranslate"><span class="pre">build/</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-files-build-configs">Configuration Files (<code class="docutils literal notranslate"><span class="pre">build/configs/</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flows-build-flows">Flows (<code class="docutils literal notranslate"><span class="pre">build/flows/</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#infrastructure-build-infrastructure">Infrastructure (<code class="docutils literal notranslate"><span class="pre">build/infrastructure/</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#design-design">Design (<code class="docutils literal notranslate"><span class="pre">design/</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hardware-design-hardware">Hardware (<code class="docutils literal notranslate"><span class="pre">design/hardware/</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#software-design-software">Software (<code class="docutils literal notranslate"><span class="pre">design/software/</span></code>)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#output-output">Output (<code class="docutils literal notranslate"><span class="pre">output/</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#simulations-simulations">Simulations (<code class="docutils literal notranslate"><span class="pre">simulations/</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#validate-validate">Validate (<code class="docutils literal notranslate"><span class="pre">validate/</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#root-files">Root Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Project Structure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user_guide/project_structure.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="project-structure">
+<h1>Project Structure<a class="headerlink" href="#project-structure" title="Link to this heading"></a></h1>
+<p>The RISC-V Silicon Design Environment is organized in a modular structure to separate different components of the design flow. This document provides an overview of the project’s directory structure and the purpose of each component.</p>
+<section id="top-level-directories">
+<h2>Top-Level Directories<a class="headerlink" href="#top-level-directories" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>silicon-design-environment/
+├── build/              # Build infrastructure and flows
+├── design/             # RTL and software designs
+├── docs/               # Documentation
+├── output/             # Generated outputs
+├── simulations/        # Simulation configurations
+└── validate/           # Validation and testing
+</pre></div>
+</div>
+</section>
+<section id="build-infrastructure-build">
+<h2>Build Infrastructure (<code class="docutils literal notranslate"><span class="pre">build/</span></code>)<a class="headerlink" href="#build-infrastructure-build" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">build/</span></code> directory contains all the infrastructure for building, simulating, and analyzing designs:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>build/
+├── configs/            # Configuration files
+├── flows/              # Flow definitions
+│   ├── analysis_flow.py
+│   ├── main_study_flow.py
+│   ├── simulation_flow.py
+│   ├── software_flow.py
+│   └── synthesis_flow.py
+├── infrastructure/     # Cloud and infrastructure setup
+└── scripts/            # Build scripts
+</pre></div>
+</div>
+<section id="configuration-files-build-configs">
+<h3>Configuration Files (<code class="docutils literal notranslate"><span class="pre">build/configs/</span></code>)<a class="headerlink" href="#configuration-files-build-configs" title="Link to this heading"></a></h3>
+<p>Configuration files define parameters for different flows and cores. They are typically in YAML format and specify cores, benchmarks, and simulation parameters.</p>
+<p>Example configuration file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores</span><span class="p">:</span><span class="w"> </span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">simple_core</span>
+<span class="nt">benchmarks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hello-world</span>
+<span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">simple_core</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="nt">output_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">output/simple_core_test</span>
+</pre></div>
+</div>
+</section>
+<section id="flows-build-flows">
+<h3>Flows (<code class="docutils literal notranslate"><span class="pre">build/flows/</span></code>)<a class="headerlink" href="#flows-build-flows" title="Link to this heading"></a></h3>
+<p>Flow modules define different stages of the silicon design process:</p>
+<ul class="simple">
+<li><p><strong>software_flow.py</strong>: Compiles software for RISC-V targets</p></li>
+<li><p><strong>simulation_flow.py</strong>: Configures and runs RTL simulations</p></li>
+<li><p><strong>synthesis_flow.py</strong>: Handles logic synthesis flow</p></li>
+<li><p><strong>analysis_flow.py</strong>: Analyzes simulation and synthesis results</p></li>
+<li><p><strong>main_study_flow.py</strong>: Orchestrates all flows together</p></li>
+</ul>
+</section>
+<section id="infrastructure-build-infrastructure">
+<h3>Infrastructure (<code class="docutils literal notranslate"><span class="pre">build/infrastructure/</span></code>)<a class="headerlink" href="#infrastructure-build-infrastructure" title="Link to this heading"></a></h3>
+<p>Contains configuration files and scripts for running flows in cloud or Kubernetes environments.</p>
+</section>
+</section>
+<section id="design-design">
+<h2>Design (<code class="docutils literal notranslate"><span class="pre">design/</span></code>)<a class="headerlink" href="#design-design" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">design/</span></code> directory contains both hardware and software components:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>design/
+├── hardware/           # Hardware designs
+│   ├── physical/       # Physical design files
+│   │   ├── common/     # Common PDK files
+│   │   └── pdks/       # Process Design Kits
+│   └── rtl/            # RTL design files
+│       ├── common/     # Common RTL modules
+│       ├── cores/      # RISC-V core implementations
+│       ├── simulation/ # Simulation-specific modules
+│       └── testbench/  # Testbenches
+└── software/           # Software applications
+    ├── common/         # Common utilities
+    ├── crypto/         # Cryptography benchmarks
+    ├── fft/            # FFT implementations
+    ├── hello-world/    # Simple &quot;Hello World&quot; program
+    └── matrix_mult/    # Matrix multiplication
+</pre></div>
+</div>
+<section id="hardware-design-hardware">
+<h3>Hardware (<code class="docutils literal notranslate"><span class="pre">design/hardware/</span></code>)<a class="headerlink" href="#hardware-design-hardware" title="Link to this heading"></a></h3>
+<p>Hardware designs are separated into:</p>
+<ul class="simple">
+<li><p><strong>RTL designs</strong>: Verilog/SystemVerilog implementations of RISC-V cores and supporting modules</p></li>
+<li><p><strong>Physical designs</strong>: Files related to physical implementation like floorplans, constraints, etc.</p></li>
+<li><p><strong>PDKs</strong>: Process Design Kit files for different technology nodes</p></li>
+</ul>
+</section>
+<section id="software-design-software">
+<h3>Software (<code class="docutils literal notranslate"><span class="pre">design/software/</span></code>)<a class="headerlink" href="#software-design-software" title="Link to this heading"></a></h3>
+<p>Software includes various benchmark programs that can be compiled and run on the RISC-V cores:</p>
+<ul class="simple">
+<li><p><strong>hello-world</strong>: A simple “Hello World” program, useful for basic testing</p></li>
+<li><p><strong>crypto</strong>: Cryptographic algorithm implementations</p></li>
+<li><p><strong>fft</strong>: Fast Fourier Transform implementations</p></li>
+<li><p><strong>matrix_mult</strong>: Matrix multiplication benchmarks</p></li>
+</ul>
+</section>
+</section>
+<section id="output-output">
+<h2>Output (<code class="docutils literal notranslate"><span class="pre">output/</span></code>)<a class="headerlink" href="#output-output" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">output/</span></code> directory contains all generated files from flows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>output/
+├── hello_world.hex     # Compiled software binary
+├── program.hex         # Program memory image
+├── sim_core            # Simulation binary
+└── simple_core_sim/    # Simulation outputs
+    ├── program.hex     # Copy of program memory image
+    ├── sim_core        # Copy of simulation binary
+    └── sim.vcd         # Simulation waveform dump
+</pre></div>
+</div>
+</section>
+<section id="simulations-simulations">
+<h2>Simulations (<code class="docutils literal notranslate"><span class="pre">simulations/</span></code>)<a class="headerlink" href="#simulations-simulations" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">simulations/</span></code> directory contains simulation configurations and scripts:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>simulations/
+├── BUILD.bazel         # Bazel build rules
+└── scripts/            # Simulation scripts
+    ├── run_picorv32_simulation.sh
+    ├── run_simple_core_flow.py
+    ├── run_simple_core_simulation.sh
+    └── run_simulations.py
+</pre></div>
+</div>
+</section>
+<section id="validate-validate">
+<h2>Validate (<code class="docutils literal notranslate"><span class="pre">validate/</span></code>)<a class="headerlink" href="#validate-validate" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">validate/</span></code> directory contains tests and validation infrastructure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>validate/
+├── output/             # Validation outputs
+├── tests/              # Test files
+│   ├── conftest.py     # PyTest configuration
+│   ├── pytest.ini      # PyTest initialization
+│   ├── test_basic.py   # Basic tests
+│   └── test_dependencies.py # Dependency tests
+└── tools/              # Validation tools
+    ├── __init__.py
+    ├── config.py       # Configuration utilities
+    └── regression.py   # Regression test utilities
+</pre></div>
+</div>
+</section>
+<section id="root-files">
+<h2>Root Files<a class="headerlink" href="#root-files" title="Link to this heading"></a></h2>
+<p>Several important files exist at the root of the project:</p>
+<ul class="simple">
+<li><p><strong>BUILD.bazel</strong>: Main Bazel build file</p></li>
+<li><p><strong>MODULE.bazel</strong>: Bazel module definition</p></li>
+<li><p><strong>WORKSPACE.bazel</strong>: Bazel workspace definition</p></li>
+<li><p><strong>pyproject.toml</strong>: Python project configuration</p></li>
+<li><p><strong>README.md</strong>: Project overview</p></li>
+<li><p><strong>run_simulation.py</strong>: Convenience script for running simulations</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../getting_started/quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

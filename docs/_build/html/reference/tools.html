@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tools Reference &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Benchmarks" href="benchmarks.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tools Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#risc-v-toolchain">RISC-V Toolchain</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-in-flows">Usage in Flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verilator">Verilator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Usage in Flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#yosys">Yosys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Usage in Flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#openroad">OpenROAD</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Usage in Flows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bazel">Bazel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gtkwave">GTKWave</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#analysis-scripts">Analysis Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#available-scripts">Available Scripts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Usage</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#flow-orchestration-tools">Flow Orchestration Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#main-study-flow">Main Study Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-utilities">Configuration Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#infrastructure-tools">Infrastructure Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#terraform">Terraform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nix">Nix</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#validation-tools">Validation Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test-framework">Test Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regression-tools">Regression Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#integration-with-vs-code">Integration with VS Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#recommended-extensions">Recommended Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debugging">Debugging</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Tools Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/reference/tools.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tools-reference">
+<h1>Tools Reference<a class="headerlink" href="#tools-reference" title="Link to this heading"></a></h1>
+<p>The RISC-V Silicon Design Environment integrates various tools for design, simulation, synthesis, and analysis. This document provides an overview of these tools and how they are used in the environment.</p>
+<section id="risc-v-toolchain">
+<h2>RISC-V Toolchain<a class="headerlink" href="#risc-v-toolchain" title="Link to this heading"></a></h2>
+<p>The RISC-V toolchain is used to compile software for RISC-V targets.</p>
+<section id="components">
+<h3>Components<a class="headerlink" href="#components" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>GCC/LLVM Compiler</strong>: Compiles C/C++ code to RISC-V assembly</p></li>
+<li><p><strong>Assembler</strong>: Assembles RISC-V assembly into object code</p></li>
+<li><p><strong>Linker</strong>: Links object files into executables</p></li>
+<li><p><strong>Binary Utilities</strong>: Creates binary and hex files for simulation</p></li>
+</ul>
+</section>
+<section id="usage-in-flows">
+<h3>Usage in Flows<a class="headerlink" href="#usage-in-flows" title="Link to this heading"></a></h3>
+<p>The toolchain is primarily used in the software flow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/software_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</section>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
+<p>Toolchain options can be configured in the YAML configuration files:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">software_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">toolchain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">riscv32-unknown-elf</span>
+<span class="w">  </span><span class="nt">optimization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O2</span>
+<span class="w">  </span><span class="nt">debug</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">arch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rv32i</span>
+<span class="w">  </span><span class="nt">abi</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ilp32</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="verilator">
+<h2>Verilator<a class="headerlink" href="#verilator" title="Link to this heading"></a></h2>
+<p>Verilator is an open-source RTL simulator used for simulating RISC-V cores.</p>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Fast cycle-accurate simulation</p></li>
+<li><p>VCD waveform generation</p></li>
+<li><p>SystemVerilog support</p></li>
+<li><p>C++ testbench integration</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Usage in Flows<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Verilator is primarily used in the simulation flow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/simulation_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Configuration<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<p>Verilator options can be configured in the YAML configuration files:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">simple_core</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">simulator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">verilator</span>
+<span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">trace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">max_cycles</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
+<span class="w">      </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300</span>
+<span class="w">      </span><span class="nt">verilator_flags</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;--trace-fst</span><span class="nv"> </span><span class="s">--trace-structs&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="yosys">
+<h2>Yosys<a class="headerlink" href="#yosys" title="Link to this heading"></a></h2>
+<p>Yosys is an open-source synthesis tool used for logic synthesis.</p>
+<section id="id3">
+<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>RTL synthesis</p></li>
+<li><p>Technology mapping</p></li>
+<li><p>Formal verification</p></li>
+<li><p>Various optimization passes</p></li>
+</ul>
+</section>
+<section id="id4">
+<h3>Usage in Flows<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Yosys is primarily used in the synthesis flow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/synthesis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>Configuration<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>Yosys options can be configured in the YAML configuration files:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">synthesis_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yosys</span>
+<span class="w">  </span><span class="nt">technology</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sky130</span>
+<span class="w">  </span><span class="nt">clock_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span><span class="w">  </span><span class="c1"># in ns</span>
+<span class="w">  </span><span class="nt">optimization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">area</span><span class="w">  </span><span class="c1"># area or speed</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="openroad">
+<h2>OpenROAD<a class="headerlink" href="#openroad" title="Link to this heading"></a></h2>
+<p>OpenROAD is an integrated tool for physical design.</p>
+<section id="id6">
+<h3>Features<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Floorplanning</p></li>
+<li><p>Placement</p></li>
+<li><p>Routing</p></li>
+<li><p>Timing analysis</p></li>
+<li><p>Power analysis</p></li>
+</ul>
+</section>
+<section id="id7">
+<h3>Usage in Flows<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>OpenROAD is used in the synthesis and physical design flows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/synthesis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml<span class="w"> </span>--physical
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>Configuration<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<p>OpenROAD options can be configured in the YAML configuration files:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">physical_config</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openroad</span>
+<span class="w">  </span><span class="nt">target_utilization</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.7</span>
+<span class="w">  </span><span class="nt">aspect_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0</span>
+<span class="w">  </span><span class="nt">core_margins</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="bazel">
+<h2>Bazel<a class="headerlink" href="#bazel" title="Link to this heading"></a></h2>
+<p>Bazel is the build system used for the entire environment.</p>
+<section id="id9">
+<h3>Features<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Hermetic builds</p></li>
+<li><p>Incremental compilation</p></li>
+<li><p>Parallel execution</p></li>
+<li><p>Cross-compilation support</p></li>
+</ul>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h3>
+<p>Bazel is used to build all software and hardware components:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build a specific target</span>
+bazel<span class="w"> </span>build<span class="w"> </span>//design/software/hello-world:executable
+
+<span class="c1"># Build and run a test</span>
+bazel<span class="w"> </span><span class="nb">test</span><span class="w"> </span>//validate/tests:all
+
+<span class="c1"># Build everything</span>
+bazel<span class="w"> </span>build<span class="w"> </span>//...
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>Configuration<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<p>Bazel is configured using:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">WORKSPACE.bazel</span></code>: Defines external dependencies</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MODULE.bazel</span></code>: Defines module configuration</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUILD.bazel</span></code>: Defines build targets</p></li>
+</ul>
+</section>
+</section>
+<section id="gtkwave">
+<h2>GTKWave<a class="headerlink" href="#gtkwave" title="Link to this heading"></a></h2>
+<p>GTKWave is used for viewing simulation waveforms.</p>
+<section id="id11">
+<h3>Usage<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<p>After running a simulation, you can view the waveforms:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gtkwave<span class="w"> </span>output/simple_core_sim/sim.vcd
+</pre></div>
+</div>
+</section>
+</section>
+<section id="analysis-scripts">
+<h2>Analysis Scripts<a class="headerlink" href="#analysis-scripts" title="Link to this heading"></a></h2>
+<p>The environment includes custom Python scripts for analyzing simulation and synthesis results.</p>
+<section id="available-scripts">
+<h3>Available Scripts<a class="headerlink" href="#available-scripts" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Performance Analysis</strong>: Analyzes execution time and CPI</p></li>
+<li><p><strong>Power Analysis</strong>: Estimates power consumption</p></li>
+<li><p><strong>Area Analysis</strong>: Analyzes gate count and utilization</p></li>
+<li><p><strong>Visualization</strong>: Creates charts and graphs</p></li>
+</ul>
+</section>
+<section id="id12">
+<h3>Usage<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/analysis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</section>
+</section>
+<section id="flow-orchestration-tools">
+<h2>Flow Orchestration Tools<a class="headerlink" href="#flow-orchestration-tools" title="Link to this heading"></a></h2>
+<p>The environment includes tools for orchestrating the entire design flow.</p>
+<section id="main-study-flow">
+<h3>Main Study Flow<a class="headerlink" href="#main-study-flow" title="Link to this heading"></a></h3>
+<p>The main study flow coordinates all other flows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/main_study_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml<span class="w"> </span>--flow<span class="o">=</span>software,simulation,synthesis,analysis
+</pre></div>
+</div>
+</section>
+<section id="configuration-utilities">
+<h3>Configuration Utilities<a class="headerlink" href="#configuration-utilities" title="Link to this heading"></a></h3>
+<p>Utilities for loading and validating configurations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">build.flows.utils.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_config</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s2">&quot;build/configs/simple_core_test.yaml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="infrastructure-tools">
+<h2>Infrastructure Tools<a class="headerlink" href="#infrastructure-tools" title="Link to this heading"></a></h2>
+<p>Tools for running flows in cloud or Kubernetes environments.</p>
+<section id="kubernetes">
+<h3>Kubernetes<a class="headerlink" href="#kubernetes" title="Link to this heading"></a></h3>
+<p>Configuration files for Kubernetes deployment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>build/infrastructure/kubernetes/
+├── config.yaml
+└── job.yaml
+</pre></div>
+</div>
+</section>
+<section id="terraform">
+<h3>Terraform<a class="headerlink" href="#terraform" title="Link to this heading"></a></h3>
+<p>Terraform scripts for cloud deployment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">build</span><span class="o">/</span><span class="n">infrastructure</span><span class="o">/</span><span class="n">terraform</span><span class="o">/</span>
+</pre></div>
+</div>
+</section>
+<section id="nix">
+<h3>Nix<a class="headerlink" href="#nix" title="Link to this heading"></a></h3>
+<p>Nix shell for reproducible development environment:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>build/infrastructure/nix/
+└── shell.nix
+</pre></div>
+</div>
+</section>
+</section>
+<section id="validation-tools">
+<h2>Validation Tools<a class="headerlink" href="#validation-tools" title="Link to this heading"></a></h2>
+<p>Tools for validating the environment setup and test results.</p>
+<section id="test-framework">
+<h3>Test Framework<a class="headerlink" href="#test-framework" title="Link to this heading"></a></h3>
+<p>The test framework uses pytest:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run all tests</span>
+pytest<span class="w"> </span>validate/tests/
+
+<span class="c1"># Run specific tests</span>
+pytest<span class="w"> </span>validate/tests/test_dependencies.py
+</pre></div>
+</div>
+</section>
+<section id="regression-tools">
+<h3>Regression Tools<a class="headerlink" href="#regression-tools" title="Link to this heading"></a></h3>
+<p>Tools for running regression tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>validate/tools/regression.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="integration-with-vs-code">
+<h2>Integration with VS Code<a class="headerlink" href="#integration-with-vs-code" title="Link to this heading"></a></h2>
+<p>The environment can be integrated with Visual Studio Code for a better development experience.</p>
+<section id="recommended-extensions">
+<h3>Recommended Extensions<a class="headerlink" href="#recommended-extensions" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>C/C++ Extension</p></li>
+<li><p>Python Extension</p></li>
+<li><p>Verilog/SystemVerilog Extension</p></li>
+<li><p>Bazel Extension</p></li>
+</ul>
+</section>
+<section id="debugging">
+<h3>Debugging<a class="headerlink" href="#debugging" title="Link to this heading"></a></h3>
+<p>VS Code launch configurations for debugging:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;configurations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Debug Software Flow&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;request&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;launch&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;program&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;${workspaceFolder}/build/flows/software_flow.py&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;build/configs/simple_core_test.yaml&quot;</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;console&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;integratedTerminal&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="benchmarks.html" class="btn btn-neutral float-left" title="Benchmarks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

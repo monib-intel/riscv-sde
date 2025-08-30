@@ -1,0 +1,31 @@
+# Architecture Diagram
+
+This is a placeholder for the architecture diagram. To generate the actual diagram, please install Graphviz and run the following command:
+
+```bash
+dot -Tpng docs/_static/architecture_diagram.dot -o docs/_static/architecture_diagram.png
+```
+
+The architecture diagram shows the main components of the RISC-V Silicon Design Environment:
+
+1. **Build Infrastructure**
+   - Configuration Files
+   - Flow Definitions
+   - Infrastructure
+
+2. **Design**
+   - Hardware RTL
+   - Software Benchmarks
+
+3. **Output**
+   - Simulation Results
+   - Synthesis Results
+   - Analysis Reports
+
+The components are connected as follows:
+- Configuration files configure the flows
+- Flows compile software and simulate hardware
+- Hardware and software combine to produce simulation results
+- Hardware is synthesized to produce synthesis results
+- Simulation and synthesis results are analyzed to produce analysis reports
+- Infrastructure provides execution environment for flows

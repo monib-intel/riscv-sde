@@ -1,0 +1,218 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RISC-V Silicon Design Environment Documentation &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=8d563738"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference/api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development/ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">RISC-V Silicon Design Environment Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="risc-v-silicon-design-environment-documentation">
+<h1>RISC-V Silicon Design Environment Documentation<a class="headerlink" href="#risc-v-silicon-design-environment-documentation" title="Link to this heading"></a></h1>
+<p>This directory contains the Sphinx documentation for the RISC-V Silicon Design Environment.</p>
+<section id="building-the-documentation">
+<h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Link to this heading"></a></h2>
+<p>To build the documentation, you need to have Sphinx and other dependencies installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install documentation dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p>Then, you can build the documentation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build HTML documentation</span>
+make<span class="w"> </span>html
+</pre></div>
+</div>
+<p>The built documentation will be available in the <code class="docutils literal notranslate"><span class="pre">_build/html</span></code> directory.</p>
+</section>
+<section id="documentation-structure">
+<h2>Documentation Structure<a class="headerlink" href="#documentation-structure" title="Link to this heading"></a></h2>
+<p>The documentation is organized as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">getting_started/</span></code>: Getting started guides</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">user_guide/</span></code>: User guides</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reference/</span></code>: Reference documentation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">development/</span></code>: Development guides</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_static/</span></code>: Static files (images, CSS, etc.)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_templates/</span></code>: Custom templates</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_build/</span></code>: Built documentation (generated)</p></li>
+</ul>
+</section>
+<section id="contributing-to-the-documentation">
+<h2>Contributing to the Documentation<a class="headerlink" href="#contributing-to-the-documentation" title="Link to this heading"></a></h2>
+<p>When contributing to the documentation, please follow these guidelines:</p>
+<ol class="arabic simple">
+<li><p>Use Markdown (<code class="docutils literal notranslate"><span class="pre">.md</span></code>) for new documents</p></li>
+<li><p>Follow the existing structure</p></li>
+<li><p>Include examples where appropriate</p></li>
+<li><p>Use proper formatting</p></li>
+<li><p>Update the index and toctrees as needed</p></li>
+</ol>
+</section>
+<section id="building-other-formats">
+<h2>Building Other Formats<a class="headerlink" href="#building-other-formats" title="Link to this heading"></a></h2>
+<p>The documentation can be built in various formats:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build PDF documentation</span>
+make<span class="w"> </span>latexpdf
+
+<span class="c1"># Build EPUB documentation</span>
+make<span class="w"> </span>epub
+
+<span class="c1"># Build single HTML page</span>
+make<span class="w"> </span>singlehtml
+
+<span class="c1"># Build man pages</span>
+make<span class="w"> </span>man
+</pre></div>
+</div>
+</section>
+<section id="generating-api-documentation">
+<h2>Generating API Documentation<a class="headerlink" href="#generating-api-documentation" title="Link to this heading"></a></h2>
+<p>The API documentation is generated automatically from docstrings using Sphinx’s autodoc extension. To ensure your code is properly documented, follow these guidelines:</p>
+<ol class="arabic simple">
+<li><p>Use Google-style docstrings</p></li>
+<li><p>Include type hints</p></li>
+<li><p>Document all parameters, return values, and exceptions</p></li>
+<li><p>Include examples where appropriate</p></li>
+</ol>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">calculate_performance_metrics</span><span class="p">(</span><span class="n">simulation_results</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate performance metrics from simulation results.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        simulation_results: Dictionary containing simulation results</span>
+<span class="sd">        config: Configuration dictionary</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary containing calculated performance metrics</span>
+<span class="sd">        </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If simulation results are invalid</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; results = {&quot;cycles&quot;: 100, &quot;instructions&quot;: 80}</span>
+<span class="sd">        &gt;&gt;&gt; config = {&quot;output_dir&quot;: &quot;output/&quot;}</span>
+<span class="sd">        &gt;&gt;&gt; metrics = calculate_performance_metrics(results, config)</span>
+<span class="sd">        &gt;&gt;&gt; print(metrics[&quot;ipc&quot;])</span>
+<span class="sd">        0.8</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Implementation</span>
+    <span class="k">return</span> <span class="n">metrics</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

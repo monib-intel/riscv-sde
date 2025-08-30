@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CI/CD Pipeline" href="ci_cd.html" />
+    <link rel="prev" title="Contributing Guide" href="contributing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#testing-framework">Testing Framework</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test-categories">Test Categories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dependency-tests">1. Dependency Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-tests">2. Configuration Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#project-structure-tests">3. Project Structure Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-tests">4. Flow Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integration-tests">5. Integration Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-all-tests">Running All Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-specific-tests">Running Specific Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#test-configuration">Test Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#writing-tests">Writing Tests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#test-file-structure">Test File Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#best-practices-for-tests">Best Practices for Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixtures">Fixtures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameterized-tests">Parameterized Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#continuous-integration">Continuous Integration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ci-configuration">CI Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-ci-locally">Running CI Locally</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#regression-testing">Regression Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-regression-tests">Running Regression Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#regression-test-configuration">Regression Test Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#performance-testing">Performance Testing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#writing-performance-tests">Writing Performance Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmarking">Benchmarking</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#coverage">Coverage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-tests-with-coverage">Running Tests with Coverage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#coverage-goals">Coverage Goals</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-tests">Adding New Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Testing</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/development/testing.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Link to this heading"></a></h1>
+<p>This document describes the testing framework for the RISC-V Silicon Design Environment and provides guidelines for writing and running tests.</p>
+<section id="testing-framework">
+<h2>Testing Framework<a class="headerlink" href="#testing-framework" title="Link to this heading"></a></h2>
+<p>The project uses pytest for testing. Tests are organized in the <code class="docutils literal notranslate"><span class="pre">validate/tests/</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>validate/
+├── output/             # Validation outputs
+├── tests/              # Test files
+│   ├── conftest.py     # PyTest configuration
+│   ├── pytest.ini      # PyTest initialization
+│   ├── test_basic.py   # Basic tests
+│   └── test_dependencies.py # Dependency tests
+└── tools/              # Validation tools
+    ├── __init__.py
+    ├── config.py       # Configuration utilities
+    └── regression.py   # Regression test utilities
+</pre></div>
+</div>
+</section>
+<section id="test-categories">
+<h2>Test Categories<a class="headerlink" href="#test-categories" title="Link to this heading"></a></h2>
+<p>The testing framework includes several categories of tests:</p>
+<section id="dependency-tests">
+<h3>1. Dependency Tests<a class="headerlink" href="#dependency-tests" title="Link to this heading"></a></h3>
+<p>These tests verify that all required dependencies are installed and properly configured.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_verilator_installed</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test that Verilator is installed and available on the PATH.&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;verilator&#39;</span><span class="p">,</span> <span class="s1">&#39;--version&#39;</span><span class="p">],</span> 
+                           <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Verilator is not installed&quot;</span>
+    <span class="k">assert</span> <span class="s2">&quot;Verilator&quot;</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="s2">&quot;Verilator version string not found&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-tests">
+<h3>2. Configuration Tests<a class="headerlink" href="#configuration-tests" title="Link to this heading"></a></h3>
+<p>These tests verify that configuration loading works properly.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_config_loading</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test that configuration files can be loaded correctly.&quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;build/configs/simple_core_test.yaml&#39;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="s1">&#39;cores&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;Missing &#39;cores&#39; section in config&quot;</span>
+    <span class="k">assert</span> <span class="s1">&#39;benchmarks&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">,</span> <span class="s2">&quot;Missing &#39;benchmarks&#39; section in config&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="project-structure-tests">
+<h3>3. Project Structure Tests<a class="headerlink" href="#project-structure-tests" title="Link to this heading"></a></h3>
+<p>These tests verify that the project structure is as expected.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_directory_structure</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test that key directories exist.&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">&#39;design&#39;</span><span class="p">),</span> <span class="s2">&quot;Missing &#39;design&#39; directory&quot;</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">&#39;build&#39;</span><span class="p">),</span> <span class="s2">&quot;Missing &#39;build&#39; directory&quot;</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="s1">&#39;validate&#39;</span><span class="p">),</span> <span class="s2">&quot;Missing &#39;validate&#39; directory&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="flow-tests">
+<h3>4. Flow Tests<a class="headerlink" href="#flow-tests" title="Link to this heading"></a></h3>
+<p>These tests verify that the flows work properly.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_software_flow</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test that software flow compiles correctly.&quot;&quot;&quot;</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;build/configs/simple_core_test.yaml&#39;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">run_software_flow</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="p">,</span> <span class="s2">&quot;Software flow failed&quot;</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;output/hello_world.hex&#39;</span><span class="p">),</span> <span class="s2">&quot;Output file not created&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="integration-tests">
+<h3>5. Integration Tests<a class="headerlink" href="#integration-tests" title="Link to this heading"></a></h3>
+<p>These tests verify that different components work together correctly.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_end_to_end</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test end-to-end flow from software compilation to simulation.&quot;&quot;&quot;</span>
+    <span class="c1"># Run the simulation using the wrapper script</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;./run_simulation.py&#39;</span><span class="p">,</span> <span class="s1">&#39;--clean&#39;</span><span class="p">],</span> 
+                           <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;Simulation failed&quot;</span>
+    <span class="k">assert</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;output/simple_core_sim/sim.vcd&#39;</span><span class="p">),</span> <span class="s2">&quot;VCD file not created&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="running-tests">
+<h2>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h2>
+<section id="running-all-tests">
+<h3>Running All Tests<a class="headerlink" href="#running-all-tests" title="Link to this heading"></a></h3>
+<p>To run all tests:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the project root</span>
+pytest<span class="w"> </span>validate/tests/
+
+<span class="c1"># For more verbosity</span>
+pytest<span class="w"> </span>-v<span class="w"> </span>validate/tests/
+</pre></div>
+</div>
+</section>
+<section id="running-specific-tests">
+<h3>Running Specific Tests<a class="headerlink" href="#running-specific-tests" title="Link to this heading"></a></h3>
+<p>To run a specific test file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>validate/tests/test_dependencies.py
+</pre></div>
+</div>
+<p>To run a specific test function:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>validate/tests/test_dependencies.py::test_verilator_installed
+</pre></div>
+</div>
+</section>
+<section id="test-configuration">
+<h3>Test Configuration<a class="headerlink" href="#test-configuration" title="Link to this heading"></a></h3>
+<p>Test configuration is defined in <code class="docutils literal notranslate"><span class="pre">validate/tests/pytest.ini</span></code>:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[pytest]</span>
+<span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">validate/tests</span>
+<span class="na">python_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test_*.py</span>
+<span class="na">python_classes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Test*</span>
+<span class="na">python_functions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">test_*</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="writing-tests">
+<h2>Writing Tests<a class="headerlink" href="#writing-tests" title="Link to this heading"></a></h2>
+<section id="test-file-structure">
+<h3>Test File Structure<a class="headerlink" href="#test-file-structure" title="Link to this heading"></a></h3>
+<p>Test files should follow this structure:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Test module for [component].</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+
+<span class="c1"># Import components to test</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">build.flows.utils.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_config</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_something</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test description.&quot;&quot;&quot;</span>
+    <span class="c1"># Test implementation</span>
+    <span class="k">assert</span> <span class="n">condition</span><span class="p">,</span> <span class="s2">&quot;Failure message&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="best-practices-for-tests">
+<h3>Best Practices for Tests<a class="headerlink" href="#best-practices-for-tests" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Isolation</strong>: Each test should be independent and not rely on the state from other tests.</p></li>
+<li><p><strong>Clear Purpose</strong>: Each test should have a clear purpose, testing one specific thing.</p></li>
+<li><p><strong>Descriptive Names</strong>: Use descriptive test names that indicate what is being tested.</p></li>
+<li><p><strong>Comments</strong>: Include comments to explain complex test logic.</p></li>
+<li><p><strong>Fixtures</strong>: Use pytest fixtures for common setup and teardown.</p></li>
+<li><p><strong>Parameterization</strong>: Use parameterized tests for testing multiple inputs.</p></li>
+</ol>
+</section>
+<section id="fixtures">
+<h3>Fixtures<a class="headerlink" href="#fixtures" title="Link to this heading"></a></h3>
+<p>Fixtures provide a way to set up preconditions for tests:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">simple_config</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fixture that provides a basic configuration.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;build/configs/simple_core_test.yaml&#39;</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_with_config</span><span class="p">(</span><span class="n">simple_config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test that uses the simple_config fixture.&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="s1">&#39;cores&#39;</span> <span class="ow">in</span> <span class="n">simple_config</span>
+</pre></div>
+</div>
+</section>
+<section id="parameterized-tests">
+<h3>Parameterized Tests<a class="headerlink" href="#parameterized-tests" title="Link to this heading"></a></h3>
+<p>Parameterized tests allow testing multiple inputs:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;core_name&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;simple_core&quot;</span><span class="p">,</span> <span class="s2">&quot;picorv32&quot;</span><span class="p">])</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_core_configuration</span><span class="p">(</span><span class="n">core_name</span><span class="p">,</span> <span class="n">simple_config</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test that configuration for different cores works.&quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">core_name</span> <span class="ow">in</span> <span class="n">simple_config</span><span class="p">[</span><span class="s1">&#39;cores&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">core_name</span> <span class="ow">in</span> <span class="n">simple_config</span><span class="p">[</span><span class="s1">&#39;cores_config&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="continuous-integration">
+<h2>Continuous Integration<a class="headerlink" href="#continuous-integration" title="Link to this heading"></a></h2>
+<p>The project uses continuous integration to automatically run tests on every push and pull request.</p>
+<section id="ci-configuration">
+<h3>CI Configuration<a class="headerlink" href="#ci-configuration" title="Link to this heading"></a></h3>
+<p>CI is configured to:</p>
+<ol class="arabic simple">
+<li><p>Install dependencies</p></li>
+<li><p>Build the project</p></li>
+<li><p>Run tests</p></li>
+<li><p>Report results</p></li>
+</ol>
+</section>
+<section id="running-ci-locally">
+<h3>Running CI Locally<a class="headerlink" href="#running-ci-locally" title="Link to this heading"></a></h3>
+<p>You can simulate the CI environment locally:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+
+<span class="c1"># Run tests</span>
+pytest<span class="w"> </span>validate/tests/
+</pre></div>
+</div>
+</section>
+</section>
+<section id="regression-testing">
+<h2>Regression Testing<a class="headerlink" href="#regression-testing" title="Link to this heading"></a></h2>
+<p>The project includes regression testing tools in <code class="docutils literal notranslate"><span class="pre">validate/tools/regression.py</span></code>.</p>
+<section id="running-regression-tests">
+<h3>Running Regression Tests<a class="headerlink" href="#running-regression-tests" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>validate/tools/regression.py
+</pre></div>
+</div>
+<p>This will:</p>
+<ol class="arabic simple">
+<li><p>Run all tests</p></li>
+<li><p>Compare results with previous runs</p></li>
+<li><p>Report any regressions</p></li>
+</ol>
+</section>
+<section id="regression-test-configuration">
+<h3>Regression Test Configuration<a class="headerlink" href="#regression-test-configuration" title="Link to this heading"></a></h3>
+<p>Regression tests can be configured in a YAML file:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">regression_tests</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">basic</span>
+<span class="w">    </span><span class="nt">test_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate/tests/test_basic.py</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dependencies</span>
+<span class="w">    </span><span class="nt">test_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate/tests/test_dependencies.py</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">software_flow</span>
+<span class="w">    </span><span class="nt">test_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">validate/tests/test_flows.py::test_software_flow</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="performance-testing">
+<h2>Performance Testing<a class="headerlink" href="#performance-testing" title="Link to this heading"></a></h2>
+<p>Performance tests measure the execution time, resource usage, and other performance metrics.</p>
+<section id="writing-performance-tests">
+<h3>Writing Performance Tests<a class="headerlink" href="#writing-performance-tests" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">test_simulation_performance</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test simulation performance.&quot;&quot;&quot;</span>
+    <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="c1"># Run simulation</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;./run_simulation.py&#39;</span><span class="p">],</span> 
+                           <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    
+    <span class="c1"># Check that simulation completes within the expected time</span>
+    <span class="k">assert</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">,</span> <span class="s2">&quot;Simulation took too long&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="benchmarking">
+<h3>Benchmarking<a class="headerlink" href="#benchmarking" title="Link to this heading"></a></h3>
+<p>For more detailed benchmarking:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">benchmark</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_benchmark_simulation</span><span class="p">(</span><span class="n">benchmark</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Benchmark simulation performance.&quot;&quot;&quot;</span>
+    <span class="n">benchmark</span><span class="p">(</span><span class="n">run_simulation_with_default_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="coverage">
+<h2>Coverage<a class="headerlink" href="#coverage" title="Link to this heading"></a></h2>
+<p>The project uses coverage.py to measure test coverage.</p>
+<section id="running-tests-with-coverage">
+<h3>Running Tests with Coverage<a class="headerlink" href="#running-tests-with-coverage" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install coverage</span>
+pip<span class="w"> </span>install<span class="w"> </span>pytest-cov
+
+<span class="c1"># Run tests with coverage</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>build<span class="w"> </span>validate/tests/
+
+<span class="c1"># Generate coverage report</span>
+pytest<span class="w"> </span>--cov<span class="o">=</span>build<span class="w"> </span>--cov-report<span class="o">=</span>html<span class="w"> </span>validate/tests/
+</pre></div>
+</div>
+</section>
+<section id="coverage-goals">
+<h3>Coverage Goals<a class="headerlink" href="#coverage-goals" title="Link to this heading"></a></h3>
+<p>The project aims for:</p>
+<ul class="simple">
+<li><p>80% line coverage</p></li>
+<li><p>70% branch coverage</p></li>
+<li><p>Coverage of all critical components</p></li>
+</ul>
+</section>
+</section>
+<section id="adding-new-tests">
+<h2>Adding New Tests<a class="headerlink" href="#adding-new-tests" title="Link to this heading"></a></h2>
+<p>When adding new functionality, also add corresponding tests:</p>
+<ol class="arabic simple">
+<li><p>Create a new test file or add to an existing file</p></li>
+<li><p>Write tests for the new functionality</p></li>
+<li><p>Ensure tests are isolated and independent</p></li>
+<li><p>Update documentation if necessary</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contributing Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ci_cd.html" class="btn btn-neutral float-right" title="CI/CD Pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

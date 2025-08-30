@@ -1,0 +1,125 @@
+# Quick Start Guide
+
+This guide will help you quickly get started with the RISC-V Silicon Design Environment by running a simple example.
+
+## Prerequisites
+
+Before proceeding, ensure you have:
+
+1. Completed the [Installation Guide](installation.md)
+2. Verified that all tools are properly installed
+3. Cloned the repository and are in the project root directory
+
+## Overview of the Example
+
+We'll run a complete flow that:
+
+1. Compiles a "Hello World" program for RISC-V
+2. Simulates it on the SimpleCore RISC-V implementation
+3. Analyzes the results
+
+## Step 1: Clone the Repository
+
+If you haven't already done so:
+
+```bash
+# Clone the repository
+git clone https://github.com/monib-intel/silicon-design-environment.git
+cd silicon-design-environment
+
+# Initialize submodules (if any)
+git submodule update --init --recursive
+```
+
+## Step 2: Build and Run the Simple Core Example
+
+The simplest way to get started is to use the wrapper script:
+
+```bash
+# Run the simulation using the default SimpleCore
+./run_with_bazel.sh
+```
+
+This script will:
+1. Build the SimpleCore RTL using Verilator
+2. Compile the hello-world program for RISC-V
+3. Run the simulation
+4. Output results to the `output/simple_core_sim/` directory
+
+## Step 3: Examine the Results
+
+After running the simulation, you can examine the results:
+
+```bash
+# View the simulation waveform (if you have GTKWave installed)
+gtkwave output/simple_core_sim/sim.vcd
+
+# Check the simulation output
+cat output/simple_core_sim/sim.log
+```
+
+## Step 4: Try Different Configurations
+
+You can modify the simulation parameters by editing the configuration file:
+
+```bash
+# Edit the configuration file
+vim build/configs/simple_core_test.yaml
+```
+
+Example configuration parameters:
+- Change the simulated core
+- Adjust simulation time
+- Select different benchmarks
+
+After editing the configuration, rerun the simulation:
+
+```bash
+./run_with_bazel.sh --config build/configs/simple_core_test.yaml
+```
+
+## Step 5: Run a Different Core
+
+You can also try the PicoRV32 core:
+
+```bash
+./run_with_bazel.sh --core picorv32
+```
+
+## Step 6: Run Individual Flows
+
+For more advanced usage, you can run individual flows using our orchestration system:
+
+```bash
+# Run only the software flow
+./run_with_bazel.sh --flows=software
+
+# Run simulation and analysis flows
+./run_with_bazel.sh --flows=simulation,analysis
+
+# Build documentation
+./run_with_bazel.sh --build-docs
+```
+
+## Step 7: Explore Bazel Targets
+
+The project uses Bazel for build management. You can list all available targets:
+
+```bash
+bazel query //...
+```
+
+And build specific targets:
+
+```bash
+bazel build //design/software/hello-world:executable
+```
+
+## Next Steps
+
+Now that you've run your first simulation, you can:
+
+1. Explore the [Project Structure](../user_guide/project_structure.md) to understand the components
+2. Learn about [Configuration](../user_guide/configuration.md) options
+3. Discover the [Available Cores](../reference/cores.md) and [Benchmarks](../reference/benchmarks.md)
+4. Try running a more complex [Workflow](../user_guide/workflows.md)

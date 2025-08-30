@@ -49,6 +49,47 @@ py_library(
     visibility = ["//visibility:public"],
 )
 
+# Executable versions of each flow
+py_binary(
+    name = "software_flow_bin",
+    srcs = ["software_flow.py"],
+    main = "software_flow.py",
+    deps = [
+        ":utils",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "simulation_flow_bin", 
+    srcs = ["simulation_flow.py"],
+    main = "simulation_flow.py",
+    deps = [
+        ":utils",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "synthesis_flow_bin",
+    srcs = ["synthesis_flow.py"],
+    main = "synthesis_flow.py",
+    deps = [
+        ":utils",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "analysis_flow_bin",
+    srcs = ["analysis_flow.py"],
+    main = "analysis_flow.py",
+    deps = [
+        ":utils", 
+    ],
+    visibility = ["//visibility:public"],
+)
+
 py_library(
     name = "utils",
     srcs = glob(["utils/*.py"]),

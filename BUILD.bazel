@@ -184,11 +184,11 @@ py_test(
 # Setup command - equivalent to setup.sh
 py_binary(
     name = "setup",
-    srcs = ["build/scripts/setup.py"],
+    srcs = ["//build/scripts:setup.py"],
     data = [
         "pyproject.toml",
     ],
-    main = "build/scripts/setup.py",
+    main = "//build/scripts:setup.py",
     tags = ["setup", "manual"],
 )
 
@@ -202,7 +202,7 @@ py_binary(
         "--flow=software,simulation",
     ],
     data = [
-        "configs/simple_core_test.yaml",
+        "//build/configs:simple_core_test.yaml",
         "//design/hardware/rtl/cores/simple_core:simple_core_rtl",
         "//design/software/hello-world:executable",
     ],
@@ -221,5 +221,23 @@ filegroup(
         "build/flows/*.py",
         "build/configs/**/*",
     ], allow_empty = True),
+    visibility = ["//visibility:public"],
+)
+
+# Prefect orchestration flow
+py_binary(
+    name = "orchestration",
+    srcs = ["//build/scripts:orchestration.py"],
+    main = "//build/scripts:orchestration.py",
+    deps = [
+        "//build/flows:utils",
+    ],
+    data = [
+        ":flow_files",
+        "//design/hardware/rtl/cores/simple_core:simple_core_rtl",
+        "//design/hardware/rtl/cores/picorv32:picorv32_rtl",
+        "//design/software/hello-world:executable",
+        "//docs:docs_sources",
+    ],
     visibility = ["//visibility:public"],
 )

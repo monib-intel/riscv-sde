@@ -1,0 +1,4 @@
+# BUILD file for Bazel extensions
+package(default_visibility = ["//visibility:public"])
+
+exports_files(["sphinx.bzl"])

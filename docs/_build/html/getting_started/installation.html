@@ -1,0 +1,284 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation Guide &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quick Start Guide" href="quickstart.html" />
+    <link rel="prev" title="RISC-V Silicon Design Environment" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#system-requirements">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-steps">Installation Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-system-dependencies">1. Install System Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-bazel">2. Install Bazel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-risc-v-toolchain">3. Install RISC-V Toolchain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-verilator">4. Install Verilator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-yosys-and-openroad">5. Install Yosys and OpenROAD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-kubernetes-setup">6. Optional: Kubernetes Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Installation Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/getting_started/installation.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation-guide">
+<h1>Installation Guide<a class="headerlink" href="#installation-guide" title="Link to this heading"></a></h1>
+<p>This guide will help you install all the necessary components for the RISC-V Silicon Design Environment.</p>
+<section id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Operating System</strong>: Linux (Ubuntu 20.04+ or equivalent)</p></li>
+<li><p><strong>Memory</strong>: 16GB RAM recommended (8GB minimum)</p></li>
+<li><p><strong>Storage</strong>: 20GB free disk space</p></li>
+<li><p><strong>CPU</strong>: Multi-core processor recommended</p></li>
+</ul>
+</section>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+<p>Before you begin, ensure that you have the following tools installed:</p>
+<ul class="simple">
+<li><p><strong>Bazel</strong> (version 6.0 or later): Build system for software and hardware</p></li>
+<li><p><strong>Python</strong> (version 3.11 or later): For running the flow orchestration scripts</p></li>
+<li><p><strong>RISC-V Toolchain</strong>: For compiling software to RISC-V ISA</p></li>
+<li><p><strong>Verilator</strong>: For RTL simulation</p></li>
+<li><p><strong>Yosys/OpenROAD</strong>: For synthesis and physical implementation</p></li>
+<li><p><strong>Git</strong>: For version control</p></li>
+<li><p><strong>Kubernetes</strong> (optional): For distributed execution</p></li>
+</ul>
+</section>
+<section id="installation-steps">
+<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Link to this heading"></a></h2>
+<section id="install-system-dependencies">
+<h3>1. Install System Dependencies<a class="headerlink" href="#install-system-dependencies" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For Ubuntu/Debian</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>build-essential<span class="w"> </span>git<span class="w"> </span>python3-dev<span class="w"> </span>python3-pip<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>cmake<span class="w"> </span>ninja-build<span class="w"> </span>pkg-config<span class="w"> </span>libffi-dev<span class="w"> </span>libssl-dev
+
+<span class="c1"># For Python dependencies</span>
+pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+</section>
+<section id="install-bazel">
+<h3>2. Install Bazel<a class="headerlink" href="#install-bazel" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Bazelisk (recommended way to install Bazel)</span>
+npm<span class="w"> </span>install<span class="w"> </span>-g<span class="w"> </span>@bazel/bazelisk
+
+<span class="c1"># Or for direct Bazel installation</span>
+wget<span class="w"> </span>https://github.com/bazelbuild/bazel/releases/download/6.0.0/bazel-6.0.0-installer-linux-x86_64.sh
+chmod<span class="w"> </span>+x<span class="w"> </span>bazel-6.0.0-installer-linux-x86_64.sh
+./bazel-6.0.0-installer-linux-x86_64.sh<span class="w"> </span>--user
+</pre></div>
+</div>
+</section>
+<section id="install-risc-v-toolchain">
+<h3>3. Install RISC-V Toolchain<a class="headerlink" href="#install-risc-v-toolchain" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download and build the RISC-V GNU toolchain</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/riscv/riscv-gnu-toolchain
+<span class="nb">cd</span><span class="w"> </span>riscv-gnu-toolchain
+./configure<span class="w"> </span>--prefix<span class="o">=</span>/opt/riscv<span class="w"> </span>--with-arch<span class="o">=</span>rv32i<span class="w"> </span>--with-abi<span class="o">=</span>ilp32
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+
+<span class="c1"># Add to PATH</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=$PATH:/opt/riscv/bin&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+</section>
+<section id="install-verilator">
+<h3>4. Install Verilator<a class="headerlink" href="#install-verilator" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>perl<span class="w"> </span>make<span class="w"> </span>autoconf<span class="w"> </span>g++<span class="w"> </span>flex<span class="w"> </span>bison<span class="w"> </span>ccache
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libgoogle-perftools-dev<span class="w"> </span>numactl<span class="w"> </span>perl-doc
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>libfl2<span class="w"> </span>libfl-dev<span class="w"> </span>zlib1g<span class="w"> </span>zlib1g-dev
+
+<span class="c1"># Download and build Verilator</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/verilator/verilator
+<span class="nb">cd</span><span class="w"> </span>verilator
+git<span class="w"> </span>checkout<span class="w"> </span>v4.228<span class="w">  </span><span class="c1"># or the latest stable version</span>
+autoconf
+./configure
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="install-yosys-and-openroad">
+<h3>5. Install Yosys and OpenROAD<a class="headerlink" href="#install-yosys-and-openroad" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install Yosys</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>yosys
+
+<span class="c1"># Install OpenROAD</span>
+git<span class="w"> </span>clone<span class="w"> </span>--recursive<span class="w"> </span>https://github.com/The-OpenROAD-Project/OpenROAD.git
+<span class="nb">cd</span><span class="w"> </span>OpenROAD
+mkdir<span class="w"> </span>build
+<span class="nb">cd</span><span class="w"> </span>build
+cmake<span class="w"> </span>..
+make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</span>
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="optional-kubernetes-setup">
+<h3>6. Optional: Kubernetes Setup<a class="headerlink" href="#optional-kubernetes-setup" title="Link to this heading"></a></h3>
+<p>If you plan to use the distributed execution features:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install kubectl</span>
+curl<span class="w"> </span>-LO<span class="w"> </span><span class="s2">&quot;https://dl.k8s.io/release/</span><span class="k">$(</span>curl<span class="w"> </span>-L<span class="w"> </span>-s<span class="w"> </span>https://dl.k8s.io/release/stable.txt<span class="k">)</span><span class="s2">/bin/linux/amd64/kubectl&quot;</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>kubectl
+sudo<span class="w"> </span>mv<span class="w"> </span>kubectl<span class="w"> </span>/usr/local/bin/
+
+<span class="c1"># Install minikube for local testing</span>
+curl<span class="w"> </span>-LO<span class="w"> </span>https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+chmod<span class="w"> </span>+x<span class="w"> </span>minikube-linux-amd64
+sudo<span class="w"> </span>mv<span class="w"> </span>minikube-linux-amd64<span class="w"> </span>/usr/local/bin/minikube
+</pre></div>
+</div>
+</section>
+</section>
+<section id="verification">
+<h2>Verification<a class="headerlink" href="#verification" title="Link to this heading"></a></h2>
+<p>To verify that everything is installed correctly:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verify RISC-V toolchain</span>
+riscv32-unknown-elf-gcc<span class="w"> </span>--version
+
+<span class="c1"># Verify Verilator</span>
+verilator<span class="w"> </span>--version
+
+<span class="c1"># Verify Yosys</span>
+yosys<span class="w"> </span>-V
+
+<span class="c1"># Verify Bazel</span>
+bazel<span class="w"> </span>--version
+
+<span class="c1"># Run the project&#39;s validation tests</span>
+<span class="nb">cd</span><span class="w"> </span>silicon-design-environment
+pytest<span class="w"> </span>validate/tests/
+</pre></div>
+</div>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Once you have completed the installation, proceed to the <a class="reference internal" href="quickstart.html"><span class="std std-doc">Quick Start Guide</span></a> to build your first project.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="RISC-V Silicon Design Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick Start Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
