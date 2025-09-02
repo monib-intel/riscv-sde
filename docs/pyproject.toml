@@ -1,0 +1,9 @@
+[tool.sphinx.autosectionlabel]
+# Prefix document path to section labels, to avoid duplicate labels across documents
+prefix_document = true
+
+[tool.sphinx.suppress_warnings]
+# Suppress duplicate label warnings
+suppress = [
+    "autosectionlabel.*"
+]

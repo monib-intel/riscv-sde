@@ -162,7 +162,7 @@ cores_config:
     options: [simulator options]
     synthesis: [synthesis options]
     
-# Output directory
+# Output directory-2
 output_dir: [output directory path]
 
 # Optional global settings

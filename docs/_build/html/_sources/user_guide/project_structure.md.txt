@@ -10,8 +10,7 @@ silicon-design-environment/
 ├── design/             # RTL and software designs
 ├── docs/               # Documentation
 ├── output/             # Generated outputs
-├── simulations/        # Simulation configurations
-└── validate/           # Validation and testing
+└── validate/           # Validation, testing, and simulations
 ```
 
 ## Build Infrastructure (`build/`)
@@ -29,6 +28,7 @@ build/
 │   └── synthesis_flow.py
 ├── infrastructure/     # Cloud and infrastructure setup
 └── scripts/            # Build scripts
+    └── orchestration.py # Prefect-based orchestration
 ```
 
 ### Configuration Files (`build/configs/`)
@@ -119,38 +119,6 @@ output/
     └── sim.vcd         # Simulation waveform dump
 ```
 
-## Simulations (`simulations/`)
-
-The `simulations/` directory contains simulation configurations and scripts:
-
-```
-simulations/
-├── BUILD.bazel         # Bazel build rules
-└── scripts/            # Simulation scripts
-    ├── run_picorv32_simulation.sh
-    ├── run_simple_core_flow.py
-    ├── run_simple_core_simulation.sh
-    └── run_simulations.py
-```
-
-## Validate (`validate/`)
-
-The `validate/` directory contains tests and validation infrastructure:
-
-```
-validate/
-├── output/             # Validation outputs
-├── tests/              # Test files
-│   ├── conftest.py     # PyTest configuration
-│   ├── pytest.ini      # PyTest initialization
-│   ├── test_basic.py   # Basic tests
-│   └── test_dependencies.py # Dependency tests
-└── tools/              # Validation tools
-    ├── __init__.py
-    ├── config.py       # Configuration utilities
-    └── regression.py   # Regression test utilities
-```
-
 ## Root Files
 
 Several important files exist at the root of the project:
@@ -160,4 +128,4 @@ Several important files exist at the root of the project:
 - **WORKSPACE.bazel**: Bazel workspace definition
 - **pyproject.toml**: Python project configuration
 - **README.md**: Project overview
-- **run_simulation.py**: Convenience script for running simulations
+- **run_with_bazel.sh**: Convenience script for running simulations and flows with Bazel

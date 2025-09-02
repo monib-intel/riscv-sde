@@ -48,12 +48,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul class="current">
@@ -62,41 +64,41 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tools Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#risc-v-toolchain">RISC-V Toolchain</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#components">Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage-3-2-in-flows-4-3-2">Usage-3-2 in Flows-4-3-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-5-4-3-2">Configuration-5-4-3-2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#verilator">Verilator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features-4-3-2">Features-4-3-2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage-in-flows">Usage in Flows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#verilator">Verilator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#yosys">Yosys</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">Usage in Flows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#yosys">Yosys</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#openroad">OpenROAD</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Usage in Flows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#openroad">OpenROAD</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Features</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Usage in Flows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">Configuration</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#bazel">Bazel</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id9">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Configuration</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#gtkwave">GTKWave</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Usage</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#analysis-scripts">Analysis Scripts</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#available-scripts">Available Scripts</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id12">Usage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Usage</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#flow-orchestration-tools">Flow Orchestration Tools</a><ul>
@@ -123,12 +125,15 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -170,15 +175,15 @@
 <li><p><strong>Binary Utilities</strong>: Creates binary and hex files for simulation</p></li>
 </ul>
 </section>
-<section id="usage-in-flows">
-<h3>Usage in Flows<a class="headerlink" href="#usage-in-flows" title="Link to this heading"></a></h3>
+<section id="usage-3-2-in-flows-4-3-2">
+<h3>Usage-3-2 in Flows-4-3-2<a class="headerlink" href="#usage-3-2-in-flows-4-3-2" title="Link to this heading"></a></h3>
 <p>The toolchain is primarily used in the software flow:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/software_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
+<section id="configuration-5-4-3-2">
+<h3>Configuration-5-4-3-2<a class="headerlink" href="#configuration-5-4-3-2" title="Link to this heading"></a></h3>
 <p>Toolchain options can be configured in the YAML configuration files:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">software_config</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">toolchain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">riscv32-unknown-elf</span>
@@ -193,8 +198,8 @@
 <section id="verilator">
 <h2>Verilator<a class="headerlink" href="#verilator" title="Link to this heading"></a></h2>
 <p>Verilator is an open-source RTL simulator used for simulating RISC-V cores.</p>
-<section id="features">
-<h3>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h3>
+<section id="features-4-3-2">
+<h3>Features-4-3-2<a class="headerlink" href="#features-4-3-2" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Fast cycle-accurate simulation</p></li>
 <li><p>VCD waveform generation</p></li>
@@ -202,15 +207,15 @@
 <li><p>C++ testbench integration</p></li>
 </ul>
 </section>
-<section id="id1">
-<h3>Usage in Flows<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="usage-in-flows">
+<h3>Usage in Flows<a class="headerlink" href="#usage-in-flows" title="Link to this heading"></a></h3>
 <p>Verilator is primarily used in the simulation flow:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/simulation_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="id2">
-<h3>Configuration<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h3>
 <p>Verilator options can be configured in the YAML configuration files:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cores_config</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">simple_core</span><span class="p">:</span>
@@ -227,8 +232,8 @@
 <section id="yosys">
 <h2>Yosys<a class="headerlink" href="#yosys" title="Link to this heading"></a></h2>
 <p>Yosys is an open-source synthesis tool used for logic synthesis.</p>
-<section id="id3">
-<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="features">
+<h3>Features<a class="headerlink" href="#features" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>RTL synthesis</p></li>
 <li><p>Technology mapping</p></li>
@@ -236,15 +241,15 @@
 <li><p>Various optimization passes</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>Usage in Flows<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id1">
+<h3>Usage in Flows<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Yosys is primarily used in the synthesis flow:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/synthesis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3>Configuration<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id2">
+<h3>Configuration<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>Yosys options can be configured in the YAML configuration files:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">synthesis_config</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">tool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">yosys</span>
@@ -258,8 +263,8 @@
 <section id="openroad">
 <h2>OpenROAD<a class="headerlink" href="#openroad" title="Link to this heading"></a></h2>
 <p>OpenROAD is an integrated tool for physical design.</p>
-<section id="id6">
-<h3>Features<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>Features<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Floorplanning</p></li>
 <li><p>Placement</p></li>
@@ -268,15 +273,15 @@
 <li><p>Power analysis</p></li>
 </ul>
 </section>
-<section id="id7">
-<h3>Usage in Flows<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Usage in Flows<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>OpenROAD is used in the synthesis and physical design flows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/synthesis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml<span class="w"> </span>--physical
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3>Configuration<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>Configuration<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>OpenROAD options can be configured in the YAML configuration files:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">physical_config</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">tool</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openroad</span>
@@ -290,8 +295,8 @@
 <section id="bazel">
 <h2>Bazel<a class="headerlink" href="#bazel" title="Link to this heading"></a></h2>
 <p>Bazel is the build system used for the entire environment.</p>
-<section id="id9">
-<h3>Features<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>Features<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Hermetic builds</p></li>
 <li><p>Incremental compilation</p></li>
@@ -313,8 +318,8 @@ bazel<span class="w"> </span>build<span class="w"> </span>//...
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h3>Configuration<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>Configuration<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>Bazel is configured using:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">WORKSPACE.bazel</span></code>: Defines external dependencies</p></li>
@@ -326,8 +331,8 @@ bazel<span class="w"> </span>build<span class="w"> </span>//...
 <section id="gtkwave">
 <h2>GTKWave<a class="headerlink" href="#gtkwave" title="Link to this heading"></a></h2>
 <p>GTKWave is used for viewing simulation waveforms.</p>
-<section id="id11">
-<h3>Usage<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>Usage<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <p>After running a simulation, you can view the waveforms:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gtkwave<span class="w"> </span>output/simple_core_sim/sim.vcd
 </pre></div>
@@ -346,8 +351,8 @@ bazel<span class="w"> </span>build<span class="w"> </span>//...
 <li><p><strong>Visualization</strong>: Creates charts and graphs</p></li>
 </ul>
 </section>
-<section id="id12">
-<h3>Usage<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>Usage<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/analysis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>

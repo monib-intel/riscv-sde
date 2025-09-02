@@ -22,14 +22,14 @@ graph TD
 
 The build stage compiles the project and its dependencies.
 
-#### Tasks:
+#### Tasks:-4-3-2
 - Set up the build environment
 - Install dependencies
 - Build software components
 - Build hardware components
 - Build documentation
 
-#### Configuration:
+#### Configuration:-4-3-2
 
 ```yaml
 build:

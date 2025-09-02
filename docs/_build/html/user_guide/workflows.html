@@ -20,7 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="RISC-V Cores" href="../reference/cores.html" />
+    <link rel="next" title="Bazel Workflows and Stages" href="bazel_workflows.html" />
     <link rel="prev" title="Configuration" href="configuration.html" /> 
 </head>
 
@@ -48,49 +48,58 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#available-workflows">Available Workflows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#software-flow">Software Flow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-software-flow">Running the Software Flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#flow-stages">Flow Stages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#customization">Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-stages-5-4-3-2">Flow Stages-5-4-3-2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#customization-3-2">Customization-3-2</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#simulation-flow">Simulation Flow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-simulation-flow">Running the Simulation Flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">Flow Stages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-stages">Flow Stages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#customization">Customization</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#synthesis-flow">Synthesis Flow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-synthesis-flow">Running the Synthesis Flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">Flow Stages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Flow Stages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Customization</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#verification-flow">Verification Flow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-verification-flow">Running the Verification Flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Flow Stages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Flow Stages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#analysis-flow">Analysis Flow</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-the-analysis-flow">Running the Analysis Flow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Flow Stages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Flow Stages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#combined-flows">Combined Flows</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#running-combined-flows">Running Combined Flows</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-flow">Documentation Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefect-orchestration">Prefect Orchestration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prefect-ui">Prefect UI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prefect-flow-structure">Prefect Flow Structure</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-flows">Custom Flows</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-integration">Workflow Integration</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -98,12 +107,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -133,6 +145,16 @@
   <section id="workflows">
 <h1>Workflows<a class="headerlink" href="#workflows" title="Link to this heading"></a></h1>
 <p>The RISC-V Silicon Design Environment provides several predefined workflows to handle different aspects of the design and verification process. This document describes the available workflows and how to use them.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The environment uses Prefect for workflow orchestration and Bazel for build management. This combination provides:</p>
+<ol class="arabic simple">
+<li><p><strong>Reproducible Builds</strong>: Bazel ensures consistent and reproducible builds</p></li>
+<li><p><strong>Efficient Orchestration</strong>: Prefect manages dependencies between tasks and caching</p></li>
+<li><p><strong>Observability</strong>: Prefect provides monitoring and visualization of workflow execution</p></li>
+<li><p><strong>Scalability</strong>: The workflows can be run locally or distributed across multiple machines</p></li>
+</ol>
+</section>
 <section id="available-workflows">
 <h2>Available Workflows<a class="headerlink" href="#available-workflows" title="Link to this heading"></a></h2>
 <p>The environment includes the following core workflows:</p>
@@ -149,12 +171,16 @@
 <p>The software flow compiles C/C++/Rust programs for RISC-V targets.</p>
 <section id="running-the-software-flow">
 <h3>Running the Software Flow<a class="headerlink" href="#running-the-software-flow" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/software_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script-7-6-5-4-3-2</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software
+
+<span class="c1"># Using Bazel directly-7-6-5-4-3-2</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//build/flows:software_flow_bin<span class="w"> </span>--<span class="w"> </span>--config<span class="o">=</span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="flow-stages">
-<h3>Flow Stages<a class="headerlink" href="#flow-stages" title="Link to this heading"></a></h3>
+<section id="flow-stages-5-4-3-2">
+<h3>Flow Stages-5-4-3-2<a class="headerlink" href="#flow-stages-5-4-3-2" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>Source Selection</strong>: Identifies source files based on the configuration</p></li>
 <li><p><strong>Compilation</strong>: Compiles sources using RISC-V GCC/LLVM toolchain</p></li>
@@ -162,8 +188,8 @@
 <li><p><strong>Binary Generation</strong>: Creates binary and memory images for simulation</p></li>
 </ol>
 </section>
-<section id="customization">
-<h3>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h3>
+<section id="customization-3-2">
+<h3>Customization-3-2<a class="headerlink" href="#customization-3-2" title="Link to this heading"></a></h3>
 <p>You can customize the software flow by modifying:</p>
 <ul class="simple">
 <li><p>Compiler flags in the configuration</p></li>
@@ -177,12 +203,16 @@
 <p>The simulation flow runs RTL designs with the compiled software.</p>
 <section id="running-the-simulation-flow">
 <h3>Running the Simulation Flow<a class="headerlink" href="#running-the-simulation-flow" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/simulation_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>simulation
+
+<span class="c1"># Using Bazel directly</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//build/flows:simulation_flow_bin<span class="w"> </span>--<span class="w"> </span>--config<span class="o">=</span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="id1">
-<h3>Flow Stages<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<section id="flow-stages">
+<h3>Flow Stages<a class="headerlink" href="#flow-stages" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>RTL Compilation</strong>: Compiles Verilog/SystemVerilog into simulator model</p></li>
 <li><p><strong>Testbench Setup</strong>: Sets up testbench environment</p></li>
@@ -190,8 +220,8 @@
 <li><p><strong>Result Collection</strong>: Collects and stores simulation results</p></li>
 </ol>
 </section>
-<section id="id2">
-<h3>Customization<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="customization">
+<h3>Customization<a class="headerlink" href="#customization" title="Link to this heading"></a></h3>
 <p>Simulation parameters can be adjusted in the configuration file:</p>
 <ul class="simple">
 <li><p>Simulation time</p></li>
@@ -205,12 +235,16 @@
 <p>The synthesis flow performs logic synthesis for ASIC or FPGA implementation.</p>
 <section id="running-the-synthesis-flow">
 <h3>Running the Synthesis Flow<a class="headerlink" href="#running-the-synthesis-flow" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/synthesis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>synthesis
+
+<span class="c1"># Using Bazel directly</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//build/flows:synthesis_flow_bin<span class="w"> </span>--<span class="w"> </span>--config<span class="o">=</span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="id3">
-<h3>Flow Stages<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id1">
+<h3>Flow Stages<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>RTL Elaboration</strong>: Elaborates the RTL design</p></li>
 <li><p><strong>Constraint Application</strong>: Applies timing and area constraints</p></li>
@@ -218,8 +252,8 @@
 <li><p><strong>Reporting</strong>: Generates area, timing, and power reports</p></li>
 </ol>
 </section>
-<section id="id4">
-<h3>Customization<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id2">
+<h3>Customization<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>Synthesis parameters can be configured:</p>
 <ul class="simple">
 <li><p>Target technology</p></li>
@@ -233,12 +267,16 @@
 <p>The verification flow ensures correctness of the design.</p>
 <section id="running-the-verification-flow">
 <h3>Running the Verification Flow<a class="headerlink" href="#running-the-verification-flow" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/verification_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>verification
+
+<span class="c1"># Using Bazel directly</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//build/flows:verification_flow_bin<span class="w"> </span>--<span class="w"> </span>--config<span class="o">=</span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3>Flow Stages<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>Flow Stages<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>Formal Verification</strong>: Applies formal verification techniques</p></li>
 <li><p><strong>Directed Testing</strong>: Runs directed test cases</p></li>
@@ -252,12 +290,16 @@
 <p>The analysis flow examines results from simulation and synthesis.</p>
 <section id="running-the-analysis-flow">
 <h3>Running the Analysis Flow<a class="headerlink" href="#running-the-analysis-flow" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/analysis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>analysis
+
+<span class="c1"># Using Bazel directly</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//build/flows:analysis_flow_bin<span class="w"> </span>--<span class="w"> </span>--config<span class="o">=</span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3>Flow Stages<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>Flow Stages<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <ol class="arabic simple">
 <li><p><strong>Data Collection</strong>: Gathers simulation and synthesis results</p></li>
 <li><p><strong>Metrics Calculation</strong>: Computes performance, power, and area metrics</p></li>
@@ -271,7 +313,11 @@
 <p>You can run multiple flows together using the main study flow.</p>
 <section id="running-combined-flows">
 <h3>Running Combined Flows<a class="headerlink" href="#running-combined-flows" title="Link to this heading"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>build/flows/main_study_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml<span class="w"> </span>--flow<span class="o">=</span>software,simulation,analysis
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software,simulation,analysis
+
+<span class="c1"># Using Bazel directly</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//:orchestration<span class="w"> </span>--<span class="w"> </span>--flows<span class="o">=</span>software,simulation,analysis
 </pre></div>
 </div>
 <p>Available flow combinations:</p>
@@ -280,6 +326,46 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">software,simulation,analysis</span></code>: Compile, simulate, and analyze</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">software,simulation,synthesis,analysis</span></code>: Complete flow</p></li>
 </ul>
+</section>
+</section>
+<section id="documentation-flow">
+<h2>Documentation Flow<a class="headerlink" href="#documentation-flow" title="Link to this heading"></a></h2>
+<p>The environment also includes a documentation flow to build the documentation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the orchestration script</span>
+./run_with_bazel.sh<span class="w"> </span>--build-docs
+
+<span class="c1"># Using Bazel directly</span>
+bazel<span class="w"> </span>build<span class="w"> </span>//docs:docs_html
+</pre></div>
+</div>
+</section>
+<section id="prefect-orchestration">
+<h2>Prefect Orchestration<a class="headerlink" href="#prefect-orchestration" title="Link to this heading"></a></h2>
+<p>The environment uses Prefect for workflow orchestration. Prefect provides several benefits:</p>
+<ol class="arabic simple">
+<li><p><strong>Task Caching</strong>: Results of tasks are cached to avoid redundant work</p></li>
+<li><p><strong>Dependency Management</strong>: Tasks only run when their dependencies are satisfied</p></li>
+<li><p><strong>Parallel Execution</strong>: Independent tasks can run in parallel</p></li>
+<li><p><strong>Failure Handling</strong>: Tasks can be retried or resumed after failures</p></li>
+<li><p><strong>Observability</strong>: Task execution can be monitored and visualized</p></li>
+</ol>
+<section id="prefect-ui">
+<h3>Prefect UI<a class="headerlink" href="#prefect-ui" title="Link to this heading"></a></h3>
+<p>If you have Prefect installed and configured, you can start the Prefect UI to monitor workflows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>prefect<span class="w"> </span>server<span class="w"> </span>start
+</pre></div>
+</div>
+<p>Then visit <a class="reference external" href="http://localhost:4200">http://localhost:4200</a> to access the UI.</p>
+</section>
+<section id="prefect-flow-structure">
+<h3>Prefect Flow Structure<a class="headerlink" href="#prefect-flow-structure" title="Link to this heading"></a></h3>
+<p>The orchestration is defined in <code class="docutils literal notranslate"><span class="pre">build/scripts/orchestration.py</span></code> and includes the following flows:</p>
+<ol class="arabic simple">
+<li><p><strong>Software Flow</strong>: Compiles RISC-V programs</p></li>
+<li><p><strong>Simulation Flow</strong>: Simulates RTL designs</p></li>
+<li><p><strong>Analysis Flow</strong>: Analyzes simulation results</p></li>
+<li><p><strong>Main Flow</strong>: Orchestrates all sub-flows</p></li>
+</ol>
 </section>
 </section>
 <section id="custom-flows">
@@ -347,7 +433,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../reference/cores.html" class="btn btn-neutral float-right" title="RISC-V Cores" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="bazel_workflows.html" class="btn btn-neutral float-right" title="Bazel Workflows and Stages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

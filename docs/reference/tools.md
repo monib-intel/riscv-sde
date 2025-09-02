@@ -13,7 +13,7 @@ The RISC-V toolchain is used to compile software for RISC-V targets.
 - **Linker**: Links object files into executables
 - **Binary Utilities**: Creates binary and hex files for simulation
 
-### Usage in Flows
+### Usage-3-2 in Flows-4-3-2
 
 The toolchain is primarily used in the software flow:
 
@@ -21,7 +21,7 @@ The toolchain is primarily used in the software flow:
 python build/flows/software_flow.py --config build/configs/simple_core_test.yaml
 ```
 
-### Configuration
+### Configuration-5-4-3-2
 
 Toolchain options can be configured in the YAML configuration files:
 
@@ -38,7 +38,7 @@ software_config:
 
 Verilator is an open-source RTL simulator used for simulating RISC-V cores.
 
-### Features
+### Features-4-3-2
 
 - Fast cycle-accurate simulation
 - VCD waveform generation

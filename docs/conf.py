@@ -8,6 +8,7 @@ Configuration file for the Sphinx documentation builder.
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath('_ext'))
 
 # -- Project information -----------------------------------------------------
 project = 'RISC-V Silicon Design Environment'
@@ -28,6 +29,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx_rtd_theme',
     'myst_parser',
+    'mermaid_lexer',
 ]
 
 templates_path = ['_templates']
@@ -38,6 +40,10 @@ source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
 }
+
+# -- Options for Auto Section Label --------------------------------------------
+autosectionlabel_prefix_document = True
+suppress_warnings = ['autosectionlabel.*']
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'sphinx_rtd_theme'

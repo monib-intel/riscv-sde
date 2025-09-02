@@ -20,7 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Project Structure" href="../user_guide/project_structure.html" />
+    <link rel="next" title="RISC-V Silicon Design Environment Documentation" href="../README.html" />
     <link rel="prev" title="Installation Guide" href="installation.html" /> 
 </head>
 
@@ -60,12 +60,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -73,12 +75,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -142,7 +147,7 @@ git<span class="w"> </span>submodule<span class="w"> </span>update<span class="w
 <h2>Step 2: Build and Run the Simple Core Example<a class="headerlink" href="#step-2-build-and-run-the-simple-core-example" title="Link to this heading"></a></h2>
 <p>The simplest way to get started is to use the wrapper script:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run the simulation using the default SimpleCore</span>
-./run_simulation.py
+./run_with_bazel.sh
 </pre></div>
 </div>
 <p>This script will:</p>
@@ -178,28 +183,28 @@ vim<span class="w"> </span>build/configs/simple_core_test.yaml
 <li><p>Select different benchmarks</p></li>
 </ul>
 <p>After editing the configuration, rerun the simulation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_simulation.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
 </pre></div>
 </div>
 </section>
 <section id="step-5-run-a-different-core">
 <h2>Step 5: Run a Different Core<a class="headerlink" href="#step-5-run-a-different-core" title="Link to this heading"></a></h2>
 <p>You can also try the PicoRV32 core:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_simulation.py<span class="w"> </span>--core<span class="w"> </span>picorv32
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--core<span class="w"> </span>picorv32
 </pre></div>
 </div>
 </section>
 <section id="step-6-run-individual-flows">
 <h2>Step 6: Run Individual Flows<a class="headerlink" href="#step-6-run-individual-flows" title="Link to this heading"></a></h2>
-<p>For more advanced usage, you can run individual flows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Software compilation flow</span>
-python<span class="w"> </span>build/flows/software_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<p>For more advanced usage, you can run individual flows using our orchestration system:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run only the software flow</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software
 
-<span class="c1"># Simulation flow</span>
-python<span class="w"> </span>build/flows/simulation_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<span class="c1"># Run simulation and analysis flows</span>
+./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>simulation,analysis
 
-<span class="c1"># Analysis flow</span>
-python<span class="w"> </span>build/flows/analysis_flow.py<span class="w"> </span>--config<span class="w"> </span>build/configs/simple_core_test.yaml
+<span class="c1"># Build documentation</span>
+./run_with_bazel.sh<span class="w"> </span>--build-docs
 </pre></div>
 </div>
 </section>
@@ -231,7 +236,7 @@ python<span class="w"> </span>build/flows/analysis_flow.py<span class="w"> </spa
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../user_guide/project_structure.html" class="btn btn-neutral float-right" title="Project Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../README.html" class="btn btn-neutral float-right" title="RISC-V Silicon Design Environment Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

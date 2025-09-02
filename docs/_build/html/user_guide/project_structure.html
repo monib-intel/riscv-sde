@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Configuration" href="configuration.html" />
-    <link rel="prev" title="Quick Start Guide" href="../getting_started/quickstart.html" /> 
+    <link rel="prev" title="RISC-V Silicon Design Environment Documentation" href="../README.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,6 +48,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
@@ -65,13 +66,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#output-output">Output (<code class="docutils literal notranslate"><span class="pre">output/</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#simulations-simulations">Simulations (<code class="docutils literal notranslate"><span class="pre">simulations/</span></code>)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#validate-validate">Validate (<code class="docutils literal notranslate"><span class="pre">validate/</span></code>)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#root-files">Root Files</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -79,12 +79,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -121,8 +124,7 @@
 ├── design/             # RTL and software designs
 ├── docs/               # Documentation
 ├── output/             # Generated outputs
-├── simulations/        # Simulation configurations
-└── validate/           # Validation and testing
+└── validate/           # Validation, testing, and simulations
 </pre></div>
 </div>
 </section>
@@ -139,6 +141,7 @@
 │   └── synthesis_flow.py
 ├── infrastructure/     # Cloud and infrastructure setup
 └── scripts/            # Build scripts
+    └── orchestration.py # Prefect-based orchestration
 </pre></div>
 </div>
 <section id="configuration-files-build-configs">
@@ -230,36 +233,6 @@
 </pre></div>
 </div>
 </section>
-<section id="simulations-simulations">
-<h2>Simulations (<code class="docutils literal notranslate"><span class="pre">simulations/</span></code>)<a class="headerlink" href="#simulations-simulations" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">simulations/</span></code> directory contains simulation configurations and scripts:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>simulations/
-├── BUILD.bazel         # Bazel build rules
-└── scripts/            # Simulation scripts
-    ├── run_picorv32_simulation.sh
-    ├── run_simple_core_flow.py
-    ├── run_simple_core_simulation.sh
-    └── run_simulations.py
-</pre></div>
-</div>
-</section>
-<section id="validate-validate">
-<h2>Validate (<code class="docutils literal notranslate"><span class="pre">validate/</span></code>)<a class="headerlink" href="#validate-validate" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">validate/</span></code> directory contains tests and validation infrastructure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>validate/
-├── output/             # Validation outputs
-├── tests/              # Test files
-│   ├── conftest.py     # PyTest configuration
-│   ├── pytest.ini      # PyTest initialization
-│   ├── test_basic.py   # Basic tests
-│   └── test_dependencies.py # Dependency tests
-└── tools/              # Validation tools
-    ├── __init__.py
-    ├── config.py       # Configuration utilities
-    └── regression.py   # Regression test utilities
-</pre></div>
-</div>
-</section>
 <section id="root-files">
 <h2>Root Files<a class="headerlink" href="#root-files" title="Link to this heading"></a></h2>
 <p>Several important files exist at the root of the project:</p>
@@ -269,7 +242,7 @@
 <li><p><strong>WORKSPACE.bazel</strong>: Bazel workspace definition</p></li>
 <li><p><strong>pyproject.toml</strong>: Python project configuration</p></li>
 <li><p><strong>README.md</strong>: Project overview</p></li>
-<li><p><strong>run_simulation.py</strong>: Convenience script for running simulations</p></li>
+<li><p><strong>run_with_bazel.sh</strong>: Convenience script for running simulations and flows with Bazel</p></li>
 </ul>
 </section>
 </section>
@@ -278,7 +251,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../getting_started/quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../README.html" class="btn btn-neutral float-left" title="RISC-V Silicon Design Environment Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="configuration.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

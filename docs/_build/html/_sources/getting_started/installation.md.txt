@@ -32,7 +32,10 @@ sudo apt install -y build-essential git python3-dev python3-pip \
     cmake ninja-build pkg-config libffi-dev libssl-dev
 
 # For Python dependencies
-pip install -r requirements.txt
+pip install -e .
+
+# For Prefect orchestration (optional)
+pip install -e ".[orchestration]"
 ```
 
 ### 2. Install Bazel

@@ -23,5 +23,23 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
+# Set default flows to just software if not specified
+# This avoids trying to run simulation and analysis flows that might not be fully implemented
+DEFAULT_FLOWS="--flows=software"
+
+# Check if flows are specified in the arguments
+if [[ ! "$*" =~ --flows ]]; then
+    echo "No flows specified, defaulting to software flow only"
+    SET_DEFAULT_FLOWS="$DEFAULT_FLOWS"
+else
+    SET_DEFAULT_FLOWS=""
+fi
+
 # Run the orchestration flow using bazel
-bazel run //:orchestration -- "$@"
+# Add working directory explicitly if not provided
+if [[ ! "$*" =~ --working-dir ]]; then
+    WORKING_DIR="$(pwd)"
+    bazel run //:orchestration -- --working-dir="$WORKING_DIR" $SET_DEFAULT_FLOWS "$@"
+else
+    bazel run //:orchestration -- $SET_DEFAULT_FLOWS "$@"
+fi

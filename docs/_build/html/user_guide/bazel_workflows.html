@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bazel Workflows and Stages &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RISC-V Cores" href="../reference/cores.html" />
+    <link rel="prev" title="Workflows" href="workflows.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            RISC-V Silicon Design Environment
+              <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="project_structure.html">Project Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflows.html">Workflows</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Bazel Workflows and Stages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-options">Command-Line Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow-stages">Workflow Stages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#software-flow">1. Software Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-flow">2. Simulation Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#analysis-flow">3. Analysis Flow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation-flow">4. Documentation Flow</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#combined-workflows">Combined Workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#customizing-configurations">Customizing Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bazel-target-structure">Bazel Target Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-with-bazel-directly">Working with Bazel Directly</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../reference/cores.html">RISC-V Cores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing.html">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development/ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RISC-V Silicon Design Environment</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bazel Workflows and Stages</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/user_guide/bazel_workflows.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bazel-workflows-and-stages">
+<h1>Bazel Workflows and Stages<a class="headerlink" href="#bazel-workflows-and-stages" title="Link to this heading"></a></h1>
+<p>This guide explains how to use Bazel for building and running the RISC-V Silicon Design Environment workflows.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p>The RISC-V SDE uses Bazel as its primary build system to ensure reproducible builds and efficient dependency management. The <code class="docutils literal notranslate"><span class="pre">run_with_bazel.sh</span></code> script provides a convenient wrapper around Bazel commands to execute various workflows.</p>
+</section>
+<section id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
+<p>To run the basic workflow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh
+</pre></div>
+</div>
+<p>By default, this runs only the software flow (building RISC-V programs).</p>
+</section>
+<section id="command-line-options">
+<h2>Command-Line Options<a class="headerlink" href="#command-line-options" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">run_with_bazel.sh</span></code> script supports several options:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--help
+</pre></div>
+</div>
+<p>Key options include:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--flows=FLOWS</span></code></p></td>
+<td><p>Comma-separated list of flows to run (software,simulation,analysis)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--core=CORE</span></code></p></td>
+<td><p>The core to simulate (simple_core, picorv32)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--config=FILE</span></code></p></td>
+<td><p>Configuration file to use</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--clean</span></code></p></td>
+<td><p>Clean build artifacts before running</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--output-dir=DIR</span></code></p></td>
+<td><p>Directory to store outputs (default: output)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--build-docs</span></code></p></td>
+<td><p>Build documentation</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="workflow-stages">
+<h2>Workflow Stages<a class="headerlink" href="#workflow-stages" title="Link to this heading"></a></h2>
+<p>The RISC-V SDE is organized into several workflow stages, each handling a specific aspect of the design and verification process:</p>
+<section id="software-flow">
+<h3>1. Software Flow<a class="headerlink" href="#software-flow" title="Link to this heading"></a></h3>
+<p>The software flow compiles RISC-V programs for execution on the cores:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software
+</pre></div>
+</div>
+<p>This stage:</p>
+<ul class="simple">
+<li><p>Compiles the specified RISC-V applications (e.g., hello-world)</p></li>
+<li><p>Generates binary and hex files for simulation</p></li>
+<li><p>Uses the RISC-V GCC toolchain via Bazel rules</p></li>
+</ul>
+<p>Key Bazel targets:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">//design/software/hello-world:executable</span></code></p></li>
+</ul>
+</section>
+<section id="simulation-flow">
+<h3>2. Simulation Flow<a class="headerlink" href="#simulation-flow" title="Link to this heading"></a></h3>
+<p>The simulation flow runs RTL simulations of the RISC-V cores:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>simulation<span class="w"> </span>--core<span class="o">=</span>simple_core
+</pre></div>
+</div>
+<p>This stage:</p>
+<ul class="simple">
+<li><p>Sets up the simulation environment</p></li>
+<li><p>Runs the core simulation with the compiled software</p></li>
+<li><p>Generates waveforms and simulation logs</p></li>
+</ul>
+<p>Key Bazel targets:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">//validate/simulations:simple_core_simulation</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">//validate/simulations:picorv32_simulation</span></code></p></li>
+</ul>
+</section>
+<section id="analysis-flow">
+<h3>3. Analysis Flow<a class="headerlink" href="#analysis-flow" title="Link to this heading"></a></h3>
+<p>The analysis flow processes simulation results to extract metrics:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>analysis
+</pre></div>
+</div>
+<p>This stage (when fully implemented):</p>
+<ul class="simple">
+<li><p>Analyzes simulation logs</p></li>
+<li><p>Extracts performance metrics</p></li>
+<li><p>Generates reports</p></li>
+</ul>
+</section>
+<section id="documentation-flow">
+<h3>4. Documentation Flow<a class="headerlink" href="#documentation-flow" title="Link to this heading"></a></h3>
+<p>To build the documentation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--build-docs
+</pre></div>
+</div>
+<p>This uses Sphinx to generate HTML documentation.</p>
+</section>
+</section>
+<section id="combined-workflows">
+<h2>Combined Workflows<a class="headerlink" href="#combined-workflows" title="Link to this heading"></a></h2>
+<p>You can combine multiple flows in a single command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software,simulation<span class="w"> </span>--core<span class="o">=</span>simple_core
+</pre></div>
+</div>
+<p>This runs both the software compilation and simulation flows for the specified core.</p>
+</section>
+<section id="customizing-configurations">
+<h2>Customizing Configurations<a class="headerlink" href="#customizing-configurations" title="Link to this heading"></a></h2>
+<p>Each flow can be customized using configuration files:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software<span class="w"> </span>--config<span class="o">=</span>build/configs/custom_config.yaml
+</pre></div>
+</div>
+<p>Configuration files specify:</p>
+<ul class="simple">
+<li><p>Cores to use</p></li>
+<li><p>Benchmarks to run</p></li>
+<li><p>Simulation parameters</p></li>
+<li><p>Output directories</p></li>
+</ul>
+</section>
+<section id="bazel-target-structure">
+<h2>Bazel Target Structure<a class="headerlink" href="#bazel-target-structure" title="Link to this heading"></a></h2>
+<p>The key Bazel targets in the repository are organized as follows:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">//:orchestration</span></code> - Main orchestration target</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">//design/software/...</span></code> - RISC-V software applications</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">//design/hardware/rtl/...</span></code> - RTL core designs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">//validate/simulations/...</span></code> - Simulation targets</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">//docs/...</span></code> - Documentation targets</p></li>
+</ul>
+</section>
+<section id="working-with-bazel-directly">
+<h2>Working with Bazel Directly<a class="headerlink" href="#working-with-bazel-directly" title="Link to this heading"></a></h2>
+<p>You can also use Bazel commands directly for more control:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build a specific target</span>
+bazel<span class="w"> </span>build<span class="w"> </span>//design/software/hello-world:executable
+
+<span class="c1"># Run a specific binary</span>
+bazel<span class="w"> </span>run<span class="w"> </span>//validate/simulations:simple_core_simulation
+
+<span class="c1"># Build all software targets</span>
+bazel<span class="w"> </span>build<span class="w"> </span>//design/software/...
+
+<span class="c1"># Clean all build artifacts</span>
+bazel<span class="w"> </span>clean
+</pre></div>
+</div>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h2>
+<p>If you encounter issues:</p>
+<ol class="arabic simple">
+<li><p><strong>Working Directory Problems</strong>: Ensure you’re in the root directory of the repository when running the script.</p></li>
+<li><p><strong>Missing Dependencies</strong>: Check if all required tools (RISC-V toolchain, Python packages) are installed.</p></li>
+<li><p><strong>Build Failures</strong>: Check logs for specific error messages. The most common issue is missing dependencies.</p></li>
+<li><p><strong>Simulation Errors</strong>: Verify that the RTL files exist and the core configuration is correct.</p></li>
+</ol>
+</section>
+<section id="best-practices">
+<h2>Best Practices<a class="headerlink" href="#best-practices" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p>Start with just the software flow to verify basic functionality:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--flows<span class="o">=</span>software
+</pre></div>
+</div>
+</li>
+<li><p>Run with clean builds when making significant changes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--clean<span class="w"> </span>--flows<span class="o">=</span>software
+</pre></div>
+</div>
+</li>
+<li><p>Use explicit configuration files for reproducible results:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_with_bazel.sh<span class="w"> </span>--config<span class="o">=</span>build/configs/simple_core_test.yaml
+</pre></div>
+</div>
+</li>
+<li><p>Check build artifacts in the output directory after each run.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="workflows.html" class="btn btn-neutral float-left" title="Workflows" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../reference/cores.html" class="btn btn-neutral float-right" title="RISC-V Cores" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, monib-intel.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

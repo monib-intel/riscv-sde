@@ -19,7 +19,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Project Structure" href="user_guide/project_structure.html" />
+    <link rel="prev" title="Quick Start Guide" href="getting_started/quickstart.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -43,15 +45,24 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getting_started/installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">RISC-V Silicon Design Environment Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">Building the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation-structure">Documentation Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing-to-the-documentation">Contributing to the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-other-formats">Building Other Formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-api-documentation">Generating API Documentation</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="user_guide/workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide/bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -59,12 +70,15 @@
 <li class="toctree-l1"><a class="reference internal" href="reference/benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/tools.html">Tools Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="development/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -98,7 +112,7 @@
 <h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Link to this heading"></a></h2>
 <p>To build the documentation, you need to have Sphinx and other dependencies installed:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install documentation dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[docs]&quot;</span>
 </pre></div>
 </div>
 <p>Then, you can build the documentation:</p>
@@ -190,7 +204,10 @@ make<span class="w"> </span>man
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started/quickstart.html" class="btn btn-neutral float-left" title="Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="user_guide/project_structure.html" class="btn btn-neutral float-right" title="Project Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

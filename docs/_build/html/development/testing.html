@@ -48,12 +48,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -61,6 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -112,6 +115,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ci_cd.html">CI/CD Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -338,7 +343,7 @@ pytest<span class="w"> </span>-v<span class="w"> </span>validate/tests/
 <h3>Running CI Locally<a class="headerlink" href="#running-ci-locally" title="Link to this heading"></a></h3>
 <p>You can simulate the CI environment locally:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install dependencies</span>
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
 
 <span class="c1"># Run tests</span>
 pytest<span class="w"> </span>validate/tests/

@@ -2,6 +2,15 @@
 
 The RISC-V Silicon Design Environment provides several predefined workflows to handle different aspects of the design and verification process. This document describes the available workflows and how to use them.
 
+## Overview
+
+The environment uses Prefect for workflow orchestration and Bazel for build management. This combination provides:
+
+1. **Reproducible Builds**: Bazel ensures consistent and reproducible builds
+2. **Efficient Orchestration**: Prefect manages dependencies between tasks and caching
+3. **Observability**: Prefect provides monitoring and visualization of workflow execution
+4. **Scalability**: The workflows can be run locally or distributed across multiple machines
+
 ## Available Workflows
 
 The environment includes the following core workflows:
@@ -19,17 +28,21 @@ The software flow compiles C/C++/Rust programs for RISC-V targets.
 ### Running the Software Flow
 
 ```bash
-python build/flows/software_flow.py --config build/configs/simple_core_test.yaml
+# Using the orchestration script-7-6-5-4-3-2
+./run_with_bazel.sh --flows=software
+
+# Using Bazel directly-7-6-5-4-3-2
+bazel run //build/flows:software_flow_bin -- --config=build/configs/simple_core_test.yaml
 ```
 
-### Flow Stages
+### Flow Stages-5-4-3-2
 
 1. **Source Selection**: Identifies source files based on the configuration
 2. **Compilation**: Compiles sources using RISC-V GCC/LLVM toolchain
 3. **Linking**: Links object files into an executable
 4. **Binary Generation**: Creates binary and memory images for simulation
 
-### Customization
+### Customization-3-2
 
 You can customize the software flow by modifying:
 - Compiler flags in the configuration
@@ -43,7 +56,11 @@ The simulation flow runs RTL designs with the compiled software.
 ### Running the Simulation Flow
 
 ```bash
-python build/flows/simulation_flow.py --config build/configs/simple_core_test.yaml
+# Using the orchestration script
+./run_with_bazel.sh --flows=simulation
+
+# Using Bazel directly
+bazel run //build/flows:simulation_flow_bin -- --config=build/configs/simple_core_test.yaml
 ```
 
 ### Flow Stages
@@ -67,7 +84,11 @@ The synthesis flow performs logic synthesis for ASIC or FPGA implementation.
 ### Running the Synthesis Flow
 
 ```bash
-python build/flows/synthesis_flow.py --config build/configs/simple_core_test.yaml
+# Using the orchestration script
+./run_with_bazel.sh --flows=synthesis
+
+# Using Bazel directly
+bazel run //build/flows:synthesis_flow_bin -- --config=build/configs/simple_core_test.yaml
 ```
 
 ### Flow Stages
@@ -91,7 +112,11 @@ The verification flow ensures correctness of the design.
 ### Running the Verification Flow
 
 ```bash
-python build/flows/verification_flow.py --config build/configs/simple_core_test.yaml
+# Using the orchestration script
+./run_with_bazel.sh --flows=verification
+
+# Using Bazel directly
+bazel run //build/flows:verification_flow_bin -- --config=build/configs/simple_core_test.yaml
 ```
 
 ### Flow Stages
@@ -108,7 +133,11 @@ The analysis flow examines results from simulation and synthesis.
 ### Running the Analysis Flow
 
 ```bash
-python build/flows/analysis_flow.py --config build/configs/simple_core_test.yaml
+# Using the orchestration script
+./run_with_bazel.sh --flows=analysis
+
+# Using Bazel directly
+bazel run //build/flows:analysis_flow_bin -- --config=build/configs/simple_core_test.yaml
 ```
 
 ### Flow Stages
@@ -125,13 +154,58 @@ You can run multiple flows together using the main study flow.
 ### Running Combined Flows
 
 ```bash
-python build/flows/main_study_flow.py --config build/configs/simple_core_test.yaml --flow=software,simulation,analysis
+# Using the orchestration script
+./run_with_bazel.sh --flows=software,simulation,analysis
+
+# Using Bazel directly
+bazel run //:orchestration -- --flows=software,simulation,analysis
 ```
 
 Available flow combinations:
 - `software,simulation`: Compile and simulate
 - `software,simulation,analysis`: Compile, simulate, and analyze
 - `software,simulation,synthesis,analysis`: Complete flow
+
+## Documentation Flow
+
+The environment also includes a documentation flow to build the documentation:
+
+```bash
+# Using the orchestration script
+./run_with_bazel.sh --build-docs
+
+# Using Bazel directly
+bazel build //docs:docs_html
+```
+
+## Prefect Orchestration
+
+The environment uses Prefect for workflow orchestration. Prefect provides several benefits:
+
+1. **Task Caching**: Results of tasks are cached to avoid redundant work
+2. **Dependency Management**: Tasks only run when their dependencies are satisfied
+3. **Parallel Execution**: Independent tasks can run in parallel
+4. **Failure Handling**: Tasks can be retried or resumed after failures
+5. **Observability**: Task execution can be monitored and visualized
+
+### Prefect UI
+
+If you have Prefect installed and configured, you can start the Prefect UI to monitor workflows:
+
+```bash
+prefect server start
+```
+
+Then visit [http://localhost:4200](http://localhost:4200) to access the UI.
+
+### Prefect Flow Structure
+
+The orchestration is defined in `build/scripts/orchestration.py` and includes the following flows:
+
+1. **Software Flow**: Compiles RISC-V programs
+2. **Simulation Flow**: Simulates RTL designs
+3. **Analysis Flow**: Analyzes simulation results
+4. **Main Flow**: Orchestrates all sub-flows
 
 ## Custom Flows
 

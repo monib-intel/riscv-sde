@@ -20,6 +20,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing the Silicon Design Environment" href="../testing.html" />
     <link rel="prev" title="Testing" href="testing.html" /> 
 </head>
 
@@ -47,12 +48,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/installation.html">Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../getting_started/quickstart.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">RISC-V Silicon Design Environment Documentation</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/project_structure.html">Project Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../user_guide/workflows.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/bazel_workflows.html">Bazel Workflows and Stages</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -60,6 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/benchmarks.html">Benchmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/tools.html">Tools Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dependencies.html">External Dependencies</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul class="current">
@@ -69,23 +73,23 @@
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pipeline-stages">Pipeline Stages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#build">1. Build</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tasks-4-3-2">Tasks:-4-3-2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-4-3-2">Configuration:-4-3-2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#test">2. Test</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#tasks">Tasks:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration:</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#test">2. Test</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#analyze">3. Analyze</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id1">Tasks:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id2">Configuration:</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#analyze">3. Analyze</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deploy">4. Deploy</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id3">Tasks:</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id4">Configuration:</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#deploy">4. Deploy</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">Tasks:</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">Configuration:</a></li>
 </ul>
 </li>
 </ul>
@@ -127,6 +131,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -159,13 +165,13 @@
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
 <p>The CI/CD pipeline automates the building, testing, and deployment of the environment. It ensures that changes to the codebase are validated before they are merged and deployed.</p>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
-    A[Push to Repository] --&gt; B[Build]
-    B --&gt; C[Test]
-    C --&gt; D[Analyze]
-    D --&gt; E{Pass?}
-    E --&gt;|Yes| F[Deploy]
-    E --&gt;|No| G[Notify]
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span><span class="k">graph</span> <span class="n">TD</span>
+    <span class="n">A</span><span class="p">[</span><span class="n">Push</span> <span class="n">to</span> <span class="n">Repository</span><span class="p">]</span> <span class="o">--&gt;</span> <span class="n">B</span><span class="p">[</span><span class="n">Build</span><span class="p">]</span>
+    <span class="n">B</span> <span class="o">--&gt;</span> <span class="n">C</span><span class="p">[</span><span class="n">Test</span><span class="p">]</span>
+    <span class="n">C</span> <span class="o">--&gt;</span> <span class="n">D</span><span class="p">[</span><span class="n">Analyze</span><span class="p">]</span>
+    <span class="n">D</span> <span class="o">--&gt;</span> <span class="n">E</span><span class="p">{</span><span class="n">Pass</span>?<span class="p">}</span>
+    <span class="n">E</span> <span class="o">--&gt;</span>|<span class="n">Yes</span>| <span class="n">F</span><span class="p">[</span><span class="n">Deploy</span><span class="p">]</span>
+    <span class="n">E</span> <span class="o">--&gt;</span>|<span class="n">No</span>| <span class="n">G</span><span class="p">[</span><span class="n">Notify</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
@@ -174,8 +180,8 @@
 <section id="build">
 <h3>1. Build<a class="headerlink" href="#build" title="Link to this heading"></a></h3>
 <p>The build stage compiles the project and its dependencies.</p>
-<section id="tasks">
-<h4>Tasks:<a class="headerlink" href="#tasks" title="Link to this heading"></a></h4>
+<section id="tasks-4-3-2">
+<h4>Tasks:-4-3-2<a class="headerlink" href="#tasks-4-3-2" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Set up the build environment</p></li>
 <li><p>Install dependencies</p></li>
@@ -184,13 +190,13 @@
 <li><p>Build documentation</p></li>
 </ul>
 </section>
-<section id="configuration">
-<h4>Configuration:<a class="headerlink" href="#configuration" title="Link to this heading"></a></h4>
+<section id="configuration-4-3-2">
+<h4>Configuration:-4-3-2<a class="headerlink" href="#configuration-4-3-2" title="Link to this heading"></a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">build</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu:22.04</span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apt-get update &amp;&amp; apt-get install -y build-essential python3-dev python3-pip</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -e &quot;.[dev]&quot;</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bazel build //...</span>
 </pre></div>
 </div>
@@ -199,8 +205,8 @@
 <section id="test">
 <h3>2. Test<a class="headerlink" href="#test" title="Link to this heading"></a></h3>
 <p>The test stage runs the project’s test suite.</p>
-<section id="id1">
-<h4>Tasks:<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
+<section id="tasks">
+<h4>Tasks:<a class="headerlink" href="#tasks" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Run unit tests</p></li>
 <li><p>Run integration tests</p></li>
@@ -208,8 +214,8 @@
 <li><p>Check code coverage</p></li>
 </ul>
 </section>
-<section id="id2">
-<h4>Configuration:<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
+<section id="configuration">
+<h4>Configuration:<a class="headerlink" href="#configuration" title="Link to this heading"></a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">test</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu:22.04</span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span>
@@ -226,8 +232,8 @@
 <section id="analyze">
 <h3>3. Analyze<a class="headerlink" href="#analyze" title="Link to this heading"></a></h3>
 <p>The analysis stage checks code quality and performs static analysis.</p>
-<section id="id3">
-<h4>Tasks:<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
+<section id="id1">
+<h4>Tasks:<a class="headerlink" href="#id1" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Run linters</p></li>
 <li><p>Check coding style</p></li>
@@ -235,8 +241,8 @@
 <li><p>Check for security vulnerabilities</p></li>
 </ul>
 </section>
-<section id="id4">
-<h4>Configuration:<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
+<section id="id2">
+<h4>Configuration:<a class="headerlink" href="#id2" title="Link to this heading"></a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">analyze</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu:22.04</span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span>
@@ -250,8 +256,8 @@
 <section id="deploy">
 <h3>4. Deploy<a class="headerlink" href="#deploy" title="Link to this heading"></a></h3>
 <p>The deploy stage publishes the project and documentation.</p>
-<section id="id5">
-<h4>Tasks:<a class="headerlink" href="#id5" title="Link to this heading"></a></h4>
+<section id="id3">
+<h4>Tasks:<a class="headerlink" href="#id3" title="Link to this heading"></a></h4>
 <ul class="simple">
 <li><p>Generate documentation</p></li>
 <li><p>Publish documentation</p></li>
@@ -259,8 +265,8 @@
 <li><p>Update deployment environments</p></li>
 </ul>
 </section>
-<section id="id6">
-<h4>Configuration:<a class="headerlink" href="#id6" title="Link to this heading"></a></h4>
+<section id="id4">
+<h4>Configuration:<a class="headerlink" href="#id4" title="Link to this heading"></a></h4>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">deploy</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu:22.04</span>
 <span class="w">  </span><span class="nt">script</span><span class="p">:</span>
@@ -301,7 +307,7 @@
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">python -m pip install --upgrade pip</span>
-<span class="w">          </span><span class="no">pip install -r requirements.txt</span>
+<span class="w">          </span><span class="no">pip install -e &quot;.&quot;</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bazel build //...</span>
 
@@ -317,7 +323,7 @@
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">          </span><span class="no">python -m pip install --upgrade pip</span>
-<span class="w">          </span><span class="no">pip install -r requirements.txt</span>
+<span class="w">          </span><span class="no">pip install -e &quot;.[dev]&quot;</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Test</span>
 <span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest validate/tests/</span>
 
@@ -375,7 +381,7 @@
 <span class="w">    </span><span class="n">stages</span><span class="w"> </span><span class="o">{</span>
 <span class="w">        </span><span class="n">stage</span><span class="o">(</span><span class="s1">&#39;Build&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
 <span class="w">            </span><span class="n">steps</span><span class="w"> </span><span class="o">{</span>
-<span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;pip install -r requirements.txt&#39;</span>
+<span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;pip install -e &quot;.[dev]&quot;&#39;</span>
 <span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="s1">&#39;bazel build //...&#39;</span>
 <span class="w">            </span><span class="o">}</span>
 <span class="w">        </span><span class="o">}</span>
@@ -440,8 +446,9 @@
 <span class="w">    </span>rm<span class="w"> </span>bazel-6.0.0-installer-linux-x86_64.sh
 
 <span class="c"># Install Python dependencies</span>
-<span class="k">COPY</span><span class="w"> </span>requirements.txt<span class="w"> </span>/tmp/
-<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>/tmp/requirements.txt
+<span class="k">COPY</span><span class="w"> </span>pyproject.toml<span class="w"> </span>/tmp/
+<span class="k">COPY</span><span class="w"> </span>setup.py<span class="w"> </span>/tmp/
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>/tmp/.<span class="o">[</span>dev<span class="o">]</span>
 
 <span class="c"># Set working directory</span>
 <span class="k">WORKDIR</span><span class="w"> </span><span class="s">/workspace</span>
@@ -746,6 +753,7 @@ gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> 
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="testing.html" class="btn btn-neutral float-left" title="Testing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../testing.html" class="btn btn-neutral float-right" title="Testing the Silicon Design Environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

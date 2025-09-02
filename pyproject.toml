@@ -56,7 +56,7 @@ docs = [
 ]
 
 [tool.setuptools]
-packages = ["flows"]
+packages = {find = {where = ["."], include = ["build.flows*"]}}
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

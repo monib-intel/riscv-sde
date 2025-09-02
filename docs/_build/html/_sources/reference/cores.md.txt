@@ -13,14 +13,14 @@ The RISC-V Silicon Design Environment includes several RISC-V core implementatio
 
 SimpleCore is a basic RISC-V implementation that supports the RV32I instruction set. It is designed to be easily understandable and modifiable.
 
-### Architecture
+### Architecture-2
 
 SimpleCore uses a 3-stage pipeline:
 1. **Fetch**: Fetches instructions from memory
 2. **Decode**: Decodes instructions and reads registers
 3. **Execute**: Executes instructions and writes results
 
-### Key Features
+### Key Features-2
 
 - RV32I instruction set support
 - Harvard architecture (separate instruction and data memory)
@@ -28,7 +28,7 @@ SimpleCore uses a 3-stage pipeline:
 - Simple memory-mapped I/O
 - Easily extensible for custom instructions
 
-### Configuration Options
+### Configuration Options-2
 
 In the configuration file (`build/configs/simple_core_test.yaml`):
 
@@ -41,14 +41,14 @@ cores_config:
       max_cycles: 10000
 ```
 
-### Performance Characteristics
+### Performance Characteristics-2
 
 - **Clock Frequency**: ~50-100 MHz (in ASIC implementations)
 - **Area**: ~10-20K gates
 - **Power**: Low
 - **CPI (Cycles Per Instruction)**: ~1.5-2.0
 
-### Source Files
+### Source Files-2
 
 The SimpleCore RTL is located in:
 ```

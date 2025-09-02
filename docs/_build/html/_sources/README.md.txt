@@ -8,7 +8,7 @@ To build the documentation, you need to have Sphinx and other dependencies insta
 
 ```bash
 # Install documentation dependencies
-pip install -r requirements.txt
+pip install -e ".[docs]"
 ```
 
 Then, you can build the documentation:

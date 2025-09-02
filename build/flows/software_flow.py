@@ -12,8 +12,9 @@ from prefect import task, flow
 import logging
 
 # Import utilities
-from flows.utils.config import get_software_config, load_config
-from flows.utils.bazel import bazel_build
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+from build.flows.utils.config import get_software_config, load_config
+from build.flows.utils.bazel import bazel_build
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)

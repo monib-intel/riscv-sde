@@ -37,7 +37,7 @@ The simplest way to get started is to use the wrapper script:
 
 ```bash
 # Run the simulation using the default SimpleCore
-./run_simulation.py
+./run_with_bazel.sh
 ```
 
 This script will:
@@ -75,7 +75,7 @@ Example configuration parameters:
 After editing the configuration, rerun the simulation:
 
 ```bash
-./run_simulation.py --config build/configs/simple_core_test.yaml
+./run_with_bazel.sh --config build/configs/simple_core_test.yaml
 ```
 
 ## Step 5: Run a Different Core
@@ -83,22 +83,22 @@ After editing the configuration, rerun the simulation:
 You can also try the PicoRV32 core:
 
 ```bash
-./run_simulation.py --core picorv32
+./run_with_bazel.sh --core picorv32
 ```
 
 ## Step 6: Run Individual Flows
 
-For more advanced usage, you can run individual flows:
+For more advanced usage, you can run individual flows using our orchestration system:
 
 ```bash
-# Software compilation flow
-python build/flows/software_flow.py --config build/configs/simple_core_test.yaml
+# Run only the software flow
+./run_with_bazel.sh --flows=software
 
-# Simulation flow
-python build/flows/simulation_flow.py --config build/configs/simple_core_test.yaml
+# Run simulation and analysis flows
+./run_with_bazel.sh --flows=simulation,analysis
 
-# Analysis flow
-python build/flows/analysis_flow.py --config build/configs/simple_core_test.yaml
+# Build documentation
+./run_with_bazel.sh --build-docs
 ```
 
 ## Step 7: Explore Bazel Targets

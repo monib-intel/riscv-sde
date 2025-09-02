@@ -210,7 +210,7 @@ You can simulate the CI environment locally:
 
 ```bash
 # Install dependencies
-pip install -r requirements.txt
+pip install -e ".[dev]"
 
 # Run tests
 pytest validate/tests/

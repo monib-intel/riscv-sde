@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Testing the Silicon Design Environment &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
+  <title>Documentation Improvements &mdash; RISC-V Silicon Design Environment 1.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -20,8 +20,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Documentation Improvements" href="doc_improvements.html" />
-    <link rel="prev" title="CI/CD Pipeline" href="development/ci_cd.html" /> 
+    <link rel="prev" title="Testing the Silicon Design Environment" href="testing.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -70,13 +69,15 @@
 <li class="toctree-l1"><a class="reference internal" href="development/contributing.html">Contributing Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development/ci_cd.html">CI/CD Pipeline</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Testing the Silicon Design Environment</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#test-categories">Test Categories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#adding-new-tests">Adding New Tests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing the Silicon Design Environment</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation Improvements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#added-new-bazel-workflows-documentation">1. Added New Bazel Workflows Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fixed-documentation-warnings">2. Fixed Documentation Warnings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#improved-directory-structure">3. Improved Directory Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#created-utility-scripts">4. Created Utility Scripts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc_improvements.html">Documentation Improvements</a></li>
 </ul>
 
         </div>
@@ -93,9 +94,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Testing the Silicon Design Environment</li>
+      <li class="breadcrumb-item active">Documentation Improvements</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/testing.md.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/doc_improvements.md.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -103,41 +104,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="testing-the-silicon-design-environment">
-<h1>Testing the Silicon Design Environment<a class="headerlink" href="#testing-the-silicon-design-environment" title="Link to this heading"></a></h1>
-<p>This directory contains tests to verify that the silicon design environment is set up correctly.</p>
-<section id="running-tests">
-<h2>Running Tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h2>
-<p>To run all tests:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># From the project root</span>
-pytest<span class="w"> </span>validate/tests/
-
-<span class="c1"># Or for more verbosity</span>
-pytest<span class="w"> </span>-v<span class="w"> </span>validate/tests/
-</pre></div>
-</div>
-<p>To run a specific test file:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>validate/tests/test_dependencies.py
-</pre></div>
-</div>
+  <section id="documentation-improvements">
+<h1>Documentation Improvements<a class="headerlink" href="#documentation-improvements" title="Link to this heading"></a></h1>
+<p>The documentation for the RISC-V SDE has been improved in the following ways:</p>
+<section id="added-new-bazel-workflows-documentation">
+<h2>1. Added New Bazel Workflows Documentation<a class="headerlink" href="#added-new-bazel-workflows-documentation" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Created a new document <code class="docutils literal notranslate"><span class="pre">user_guide/bazel_workflows.md</span></code> that explains:</p>
+<ul>
+<li><p>How to use the <code class="docutils literal notranslate"><span class="pre">run_with_bazel.sh</span></code> script</p></li>
+<li><p>The available workflow stages (software, simulation, analysis)</p></li>
+<li><p>Command-line options and configurations</p></li>
+<li><p>Best practices for working with Bazel in the RISC-V SDE</p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="test-categories">
-<h2>Test Categories<a class="headerlink" href="#test-categories" title="Link to this heading"></a></h2>
-<ol class="arabic simple">
-<li><p><strong>Dependency Tests</strong> - Verify that all required dependencies are installed and properly configured</p></li>
-<li><p><strong>Configuration Tests</strong> - Verify that configuration loading works properly</p></li>
-<li><p><strong>Project Structure Tests</strong> - Verify that the project structure is as expected</p></li>
-</ol>
+<section id="fixed-documentation-warnings">
+<h2>2. Fixed Documentation Warnings<a class="headerlink" href="#fixed-documentation-warnings" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Reduced documentation warnings from 71+ to just 2 minor header structure warnings</p></li>
+<li><p>Fixed issues with duplicate section labels</p></li>
+<li><p>Added missing documents to the toctree structure</p></li>
+<li><p>Added support for Mermaid diagram syntax highlighting</p></li>
+</ul>
 </section>
-<section id="adding-new-tests">
-<h2>Adding New Tests<a class="headerlink" href="#adding-new-tests" title="Link to this heading"></a></h2>
-<p>When adding new tests, follow these guidelines:</p>
+<section id="improved-directory-structure">
+<h2>3. Improved Directory Structure<a class="headerlink" href="#improved-directory-structure" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Added missing <code class="docutils literal notranslate"><span class="pre">analyze</span></code> directory required by tests</p></li>
+<li><p>Ensured all documentation references are properly linked</p></li>
+<li><p>Created an <code class="docutils literal notranslate"><span class="pre">_ext</span></code> directory for custom Sphinx extensions</p></li>
+</ul>
+</section>
+<section id="created-utility-scripts">
+<h2>4. Created Utility Scripts<a class="headerlink" href="#created-utility-scripts" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Added <code class="docutils literal notranslate"><span class="pre">fix_doc_warnings.py</span></code> to help maintain documentation quality</p></li>
+<li><p>This script can be run periodically to fix common issues</p></li>
+</ul>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Future documentation improvements could include:</p>
 <ol class="arabic simple">
-<li><p>Create test files with the prefix <code class="docutils literal notranslate"><span class="pre">test_</span></code></p></li>
-<li><p>Group related tests in the same file</p></li>
-<li><p>Use descriptive test names that clearly indicate what is being tested</p></li>
-<li><p>Use fixtures from <code class="docutils literal notranslate"><span class="pre">conftest.py</span></code> when appropriate</p></li>
+<li><p>Resolving remaining header structure warnings in the API reference</p></li>
+<li><p>Adding more examples and tutorials</p></li>
+<li><p>Improving cross-references between documents</p></li>
+<li><p>Adding diagrams to illustrate the build and flow processes</p></li>
 </ol>
+<p>The documentation is now more user-friendly and provides better guidance for using Bazel with the RISC-V SDE.</p>
 </section>
 </section>
 
@@ -145,8 +161,7 @@ pytest<span class="w"> </span>-v<span class="w"> </span>validate/tests/
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="development/ci_cd.html" class="btn btn-neutral float-left" title="CI/CD Pipeline" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="doc_improvements.html" class="btn btn-neutral float-right" title="Documentation Improvements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="testing.html" class="btn btn-neutral float-left" title="Testing the Silicon Design Environment" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

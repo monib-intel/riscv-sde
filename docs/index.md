@@ -1,5 +1,7 @@
 # RISC-V Silicon Design Environment
 
+README
+dependencies
 ```{toctree}
 :maxdepth: 2
 :caption: Getting Started
@@ -7,6 +9,7 @@
 
 getting_started/installation
 getting_started/quickstart
+README
 ```
 
 ```{toctree}
@@ -17,6 +20,7 @@ getting_started/quickstart
 user_guide/project_structure
 user_guide/configuration
 user_guide/workflows
+user_guide/bazel_workflows
 ```
 
 ```{toctree}
@@ -28,6 +32,7 @@ reference/cores
 reference/benchmarks
 reference/tools
 reference/api
+dependencies
 ```
 
 ```{toctree}
@@ -38,6 +43,8 @@ reference/api
 development/contributing
 development/testing
 development/ci_cd
+testing
+doc_improvements
 ```
 
 ## Welcome to the RISC-V Silicon Design Environment
@@ -60,6 +67,7 @@ The RISC-V Silicon Design Environment is a comprehensive toolset for designing, 
 - [Installation Guide](getting_started/installation.md)
 - [Quick Start Tutorial](getting_started/quickstart.md)
 - [Project Structure](user_guide/project_structure.md)
+- [Bazel Workflows](user_guide/bazel_workflows.md)
 - [Available Cores](reference/cores.md)
 - [Benchmarks](reference/benchmarks.md)
 - [Contributing](development/contributing.md)

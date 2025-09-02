@@ -28,21 +28,21 @@ The software flow compiles C/C++/Rust programs for RISC-V targets.
 ### Running the Software Flow
 
 ```bash
-# Using the orchestration script
+# Using the orchestration script-7-6-5-4-3-2
 ./run_with_bazel.sh --flows=software
 
-# Using Bazel directly
+# Using Bazel directly-7-6-5-4-3-2
 bazel run //build/flows:software_flow_bin -- --config=build/configs/simple_core_test.yaml
 ```
 
-### Flow Stages
+### Flow Stages-5-4-3-2
 
 1. **Source Selection**: Identifies source files based on the configuration
 2. **Compilation**: Compiles sources using RISC-V GCC/LLVM toolchain
 3. **Linking**: Links object files into an executable
 4. **Binary Generation**: Creates binary and memory images for simulation
 
-### Customization
+### Customization-3-2
 
 You can customize the software flow by modifying:
 - Compiler flags in the configuration

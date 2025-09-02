@@ -15,7 +15,7 @@ The RISC-V Silicon Design Environment includes a variety of software benchmarks 
 
 The "Hello World" benchmark is a simple program that prints "Hello, World!" to the console. It serves as a basic test to verify that the core is functioning correctly.
 
-### Source Files
+### Source Files-4-3-2
 
 ```
 design/software/hello-world/
@@ -31,7 +31,7 @@ design/software/hello-world/
 └── src/
 ```
 
-### Building
+### Building-4-3-2
 
 ```bash
 # Using Bazel
@@ -42,7 +42,7 @@ cd design/software/hello-world
 make
 ```
 
-### Running
+### Running-4-3-2
 
 ```bash
 # Using the simulation wrapper
@@ -67,7 +67,7 @@ design/software/matrix_mult/
 └── matrix_mult.c
 ```
 
-### Parameters
+### Parameters-2
 
 The benchmark can be configured with different matrix sizes:
 
@@ -84,17 +84,17 @@ bazel build //design/software/matrix_mult:executable
 ### Running
 
 ```bash
-# Create a custom configuration
+# Create a custom configuration-3-2
 cp build/configs/simple_core_test.yaml build/configs/matrix_test.yaml
 
-# Edit the configuration
+# Edit the configuration-4-3-2
 # Set benchmarks: [matrix_mult]
 
-# Run the simulation
+# Run the simulation-4-3-2
 ./run_simulation.py --config build/configs/matrix_test.yaml
 ```
 
-### Metrics
+### Metrics-3-2
 
 - **Execution Time**: Time to complete the multiplication
 - **Cycles per Operation**: Clock cycles per multiplication operation
